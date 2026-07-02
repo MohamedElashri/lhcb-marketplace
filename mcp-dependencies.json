@@ -1,0 +1,142 @@
+{
+  "$schema": "./schemas/mcp-inventory.schema.json",
+  "schema_version": 1,
+  "verified_at": "2026-07-02",
+  "servers": [
+    {
+      "name": "cerngitlab",
+      "plugin": "cern-code",
+      "package": "cerngitlab-mcp",
+      "version": "0.1.7",
+      "executable": "cerngitlab-mcp",
+      "source": "https://github.com/MohamedElashri/cerngitlab-mcp",
+      "license": "AGPL-3.0",
+      "requires_python": ">=3.10",
+      "runtime_python": "3.12",
+      "wheel_sha256": "4178dbed5b0a7f2efd6c5c5cf46bf057f848d693995e5aa877c9ef41c07daf33",
+      "read_only": true,
+      "public_without_credentials": true,
+      "required_env": [],
+      "optional_env": [
+        "CERNGITLAB_TOKEN"
+      ],
+      "args": [
+        "--mode",
+        "stdio"
+      ],
+      "smoke": {
+        "tool": "test_connectivity",
+        "arguments": {}
+      }
+    },
+    {
+      "name": "root",
+      "plugin": "root-analysis",
+      "package": "root-mcp",
+      "version": "0.1.7",
+      "executable": "root-mcp",
+      "source": "https://github.com/MohamedElashri/root-mcp",
+      "license": "MIT",
+      "requires_python": ">=3.10",
+      "runtime_python": "3.12",
+      "wheel_sha256": "f7cbb39b3eda661792328bc99e2331c9170fd49d9faa6e6f5f0f72cf80bd9f4b",
+      "read_only": true,
+      "public_without_credentials": true,
+      "required_env": [
+        "ROOT_MCP_DATA_PATH"
+      ],
+      "optional_env": [],
+      "args": [
+        "--data-path",
+        "${ROOT_MCP_DATA_PATH}",
+        "--allowed-root",
+        "${ROOT_MCP_DATA_PATH}",
+        "--mode",
+        "core",
+        "--no-allow-remote",
+        "--no-export",
+        "--log-level",
+        "WARNING"
+      ],
+      "smoke": {
+        "tool": "get_server_info",
+        "arguments": {}
+      }
+    },
+    {
+      "name": "inspirehep",
+      "plugin": "hep-research",
+      "package": "inspirehep-mcp",
+      "version": "0.1.4",
+      "executable": "inspirehep-mcp",
+      "source": "https://github.com/MohamedElashri/inspirehep-mcp",
+      "license": "AGPL-3.0",
+      "requires_python": ">=3.12",
+      "runtime_python": "3.12",
+      "wheel_sha256": "8aaf546687717da9fbdedcea18f02b7bed524d86effdc7792b54c26928ac34c0",
+      "read_only": true,
+      "public_without_credentials": true,
+      "required_env": [],
+      "optional_env": [],
+      "args": [],
+      "smoke": {
+        "tool": "search_by_collaboration",
+        "arguments": {
+          "collaboration_name": "LHCb",
+          "size": 1
+        }
+      }
+    },
+    {
+      "name": "hepdata",
+      "plugin": "hep-research",
+      "package": "hepdata-mcp",
+      "version": "0.1.0",
+      "executable": "hepdata-mcp",
+      "source": "https://github.com/HEPData/hepdata-mcp",
+      "license": "GPL-2.0-or-later",
+      "requires_python": ">=3.11",
+      "runtime_python": "3.12",
+      "wheel_sha256": "9f5aba12094e65af0517396ad180831825ceae5c1ed1e120b88f91e8c18bf5eb",
+      "read_only": true,
+      "public_without_credentials": true,
+      "required_env": [],
+      "optional_env": [],
+      "args": [
+        "--transport",
+        "stdio"
+      ],
+      "smoke": {
+        "tool": "search_records",
+        "arguments": {
+          "query": "LHCb",
+          "size": 1
+        }
+      }
+    },
+    {
+      "name": "cds",
+      "plugin": "hep-research",
+      "package": "cds-mcp",
+      "version": "0.1.2",
+      "executable": "cds-mcp",
+      "source": "https://github.com/MohamedElashri/cds-mcp",
+      "license": "MIT",
+      "requires_python": ">=3.10",
+      "runtime_python": "3.12",
+      "wheel_sha256": "9ae48282c4145f66452d47a35c145fd0eb5269b855e6a75f257e61346c767d65",
+      "read_only": true,
+      "public_without_credentials": true,
+      "required_env": [],
+      "optional_env": [
+        "CERN_CLIENT_ID",
+        "CERN_CLIENT_SECRET"
+      ],
+      "args": [],
+      "smoke": {
+        "tool": "get_cds_experiments",
+        "arguments": {}
+      }
+    }
+  ]
+}

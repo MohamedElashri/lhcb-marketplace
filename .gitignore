@@ -1,0 +1,11 @@
+# Local phased development plan
+/plan.md
+
+# Local development state
+/.venv/
+/.uv-cache/
+/.uv-tools/
+/.pytest_cache/
+/.ruff_cache/
+**/__pycache__/
+*.py[cod]

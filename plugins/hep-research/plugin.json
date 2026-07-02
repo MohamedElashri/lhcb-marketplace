@@ -1,0 +1,35 @@
+{
+  "$schema": "../../schemas/plugin.schema.json",
+  "schema_version": 1,
+  "name": "hep-research",
+  "display_name": "HEP Research",
+  "description": "Optional discovery of HEP literature, publication records, documents, and public result data.",
+  "version": "0.1.0",
+  "author": {
+    "name": "LHCb Agent Marketplace contributors",
+    "url": "https://github.com/MohamedElashri"
+  },
+  "license": "MIT",
+  "keywords": [
+    "HEP",
+    "INSPIRE-HEP",
+    "HEPData",
+    "CDS",
+    "literature",
+    "open data"
+  ],
+  "interface": {
+    "short_description": "Discover HEP literature and public results.",
+    "long_description": "An optional integration boundary for finding HEP papers, citations, CERN documents, publication metadata, and public HEPData tables.",
+    "category": "Science & Research",
+    "default_prompts": [
+      "Find recent LHCb papers about this topic.",
+      "Locate the HEPData record for this measurement.",
+      "Find the corresponding CERN document record."
+    ]
+  },
+  "capabilities": {
+    "skills": false,
+    "mcp": true
+  }
+}

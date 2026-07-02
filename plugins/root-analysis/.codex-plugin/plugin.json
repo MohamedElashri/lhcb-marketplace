@@ -1,0 +1,32 @@
+{
+  "name": "root-analysis",
+  "version": "0.1.0",
+  "description": "Optional inspection and analysis of ROOT files within explicitly configured data boundaries.",
+  "author": {
+    "name": "LHCb Agent Marketplace contributors",
+    "url": "https://github.com/MohamedElashri"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ROOT",
+    "HEP",
+    "data analysis",
+    "histograms",
+    "ntuples"
+  ],
+  "interface": {
+    "displayName": "ROOT Analysis",
+    "shortDescription": "Inspect and analyze bounded ROOT data.",
+    "longDescription": "An optional integration boundary for inspecting ROOT trees, branches, histograms, statistics, and plots inside explicitly allowed data locations.",
+    "developerName": "LHCb Agent Marketplace contributors",
+    "category": "Science & Research",
+    "capabilities": [
+      "MCP"
+    ],
+    "defaultPrompt": [
+      "Inspect the trees and branches in this ROOT file.",
+      "Summarize the distributions in this ntuple."
+    ]
+  },
+  "mcpServers": "./.mcp.json"
+}

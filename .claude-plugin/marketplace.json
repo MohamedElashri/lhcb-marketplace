@@ -1,0 +1,82 @@
+{
+  "name": "lhcb-agent-marketplace",
+  "owner": {
+    "name": "LHCb Agent Marketplace contributors",
+    "url": "https://github.com/MohamedElashri"
+  },
+  "metadata": {
+    "description": "Community marketplace for portable LHCb agent workflows and optional HEP integrations."
+  },
+  "plugins": [
+    {
+      "name": "lhcb",
+      "description": "Portable skills for current LHCb Run 3 software, analysis, data discovery, and production workflows.",
+      "author": {
+        "name": "LHCb Agent Marketplace contributors",
+        "url": "https://github.com/MohamedElashri"
+      },
+      "source": "./plugins/lhcb",
+      "version": "0.1.0",
+      "keywords": [
+        "LHCb",
+        "HEP",
+        "Run 3",
+        "DaVinci",
+        "FunTuple",
+        "Analysis Productions"
+      ],
+      "skills": "./skills/"
+    },
+    {
+      "name": "cern-code",
+      "description": "Optional read-only discovery of public and user-authorized CERN GitLab projects and source code.",
+      "author": {
+        "name": "LHCb Agent Marketplace contributors",
+        "url": "https://github.com/MohamedElashri"
+      },
+      "source": "./plugins/cern-code",
+      "version": "0.1.0",
+      "keywords": [
+        "CERN",
+        "GitLab",
+        "source code",
+        "LHCb"
+      ]
+    },
+    {
+      "name": "root-analysis",
+      "description": "Optional inspection and analysis of ROOT files within explicitly configured data boundaries.",
+      "author": {
+        "name": "LHCb Agent Marketplace contributors",
+        "url": "https://github.com/MohamedElashri"
+      },
+      "source": "./plugins/root-analysis",
+      "version": "0.1.0",
+      "keywords": [
+        "ROOT",
+        "HEP",
+        "data analysis",
+        "histograms",
+        "ntuples"
+      ]
+    },
+    {
+      "name": "hep-research",
+      "description": "Optional discovery of HEP literature, publication records, documents, and public result data.",
+      "author": {
+        "name": "LHCb Agent Marketplace contributors",
+        "url": "https://github.com/MohamedElashri"
+      },
+      "source": "./plugins/hep-research",
+      "version": "0.1.0",
+      "keywords": [
+        "HEP",
+        "INSPIRE-HEP",
+        "HEPData",
+        "CDS",
+        "literature",
+        "open data"
+      ]
+    }
+  ]
+}

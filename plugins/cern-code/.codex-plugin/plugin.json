@@ -1,0 +1,31 @@
+{
+  "name": "cern-code",
+  "version": "0.1.0",
+  "description": "Optional read-only discovery of public and user-authorized CERN GitLab projects and source code.",
+  "author": {
+    "name": "LHCb Agent Marketplace contributors",
+    "url": "https://github.com/MohamedElashri"
+  },
+  "license": "MIT",
+  "keywords": [
+    "CERN",
+    "GitLab",
+    "source code",
+    "LHCb"
+  ],
+  "interface": {
+    "displayName": "CERN Code",
+    "shortDescription": "Discover CERN GitLab projects and code.",
+    "longDescription": "An optional integration boundary for read-only CERN GitLab project, repository, release, and source-code discovery.",
+    "developerName": "LHCb Agent Marketplace contributors",
+    "category": "Science & Research",
+    "capabilities": [
+      "MCP"
+    ],
+    "defaultPrompt": [
+      "Find the public CERN GitLab project for DaVinci.",
+      "Inspect the structure of an LHCb software project."
+    ]
+  },
+  "mcpServers": "./.mcp.json"
+}

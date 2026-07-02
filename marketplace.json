@@ -1,0 +1,28 @@
+{
+  "$schema": "./schemas/marketplace.schema.json",
+  "schema_version": 1,
+  "name": "lhcb-agent-marketplace",
+  "description": "Community marketplace for portable LHCb agent workflows and optional HEP integrations.",
+  "owner": {
+    "name": "LHCb Agent Marketplace contributors",
+    "url": "https://github.com/MohamedElashri"
+  },
+  "plugins": [
+    {
+      "name": "lhcb",
+      "path": "plugins/lhcb"
+    },
+    {
+      "name": "cern-code",
+      "path": "plugins/cern-code"
+    },
+    {
+      "name": "root-analysis",
+      "path": "plugins/root-analysis"
+    },
+    {
+      "name": "hep-research",
+      "path": "plugins/hep-research"
+    }
+  ]
+}

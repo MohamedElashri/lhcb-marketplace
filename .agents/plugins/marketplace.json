@@ -1,0 +1,56 @@
+{
+  "name": "lhcb-agent-marketplace",
+  "interface": {
+    "displayName": "LHCb Agent Marketplace"
+  },
+  "plugins": [
+    {
+      "name": "lhcb",
+      "source": {
+        "source": "local",
+        "path": "./plugins/lhcb"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Science & Research"
+    },
+    {
+      "name": "cern-code",
+      "source": {
+        "source": "local",
+        "path": "./plugins/cern-code"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Science & Research"
+    },
+    {
+      "name": "root-analysis",
+      "source": {
+        "source": "local",
+        "path": "./plugins/root-analysis"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Science & Research"
+    },
+    {
+      "name": "hep-research",
+      "source": {
+        "source": "local",
+        "path": "./plugins/hep-research"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Science & Research"
+    }
+  ]
+}

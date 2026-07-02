@@ -1,0 +1,35 @@
+{
+  "$schema": "../../schemas/plugin.schema.json",
+  "schema_version": 1,
+  "name": "lhcb",
+  "display_name": "LHCb",
+  "description": "Portable skills for current LHCb Run 3 software, analysis, data discovery, and production workflows.",
+  "version": "0.1.0",
+  "author": {
+    "name": "LHCb Agent Marketplace contributors",
+    "url": "https://github.com/MohamedElashri"
+  },
+  "license": "MIT",
+  "keywords": [
+    "LHCb",
+    "HEP",
+    "Run 3",
+    "DaVinci",
+    "FunTuple",
+    "Analysis Productions"
+  ],
+  "interface": {
+    "short_description": "Current LHCb Run 3 workflow guidance.",
+    "long_description": "Portable, reviewed workflow guidance for LHCb Run 3 software environments, DaVinci, FunTuple, data discovery, and Analysis Productions.",
+    "category": "Science & Research",
+    "default_prompts": [
+      "Plan a current LHCb Run 3 analysis workflow.",
+      "Help me configure a minimal DaVinci job.",
+      "Review this FunTuple configuration."
+    ]
+  },
+  "capabilities": {
+    "skills": true,
+    "mcp": false
+  }
+}

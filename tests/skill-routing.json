@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "select-released-environment",
+      "prompt": "Choose an exact DaVinci release and lb-run platform for this Run 3 simulation sample.",
+      "expected_skill": "lhcb-software-environment",
+      "forbidden_skills": ["funtuple"],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "probe-lbexec",
+      "prompt": "Check whether lbexec is available inside my selected LHCb release.",
+      "expected_skill": "lhcb-software-environment",
+      "forbidden_skills": ["funtuple"],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "create-development-build",
+      "prompt": "Set up an lb-dev environment so I can change a DaVinci package.",
+      "expected_skill": "lhcb-software-environment",
+      "forbidden_skills": ["funtuple"],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "generic-python-venv",
+      "prompt": "Create a generic Python virtual environment for a small plotting package.",
+      "expected_skill": null,
+      "forbidden_skills": [
+        "lhcb-software-environment",
+        "davinci-run3",
+        "funtuple"
+      ],
+      "expected_outcome": "defer"
+    },
+    {
+      "id": "minimal-davinci-job",
+      "prompt": "Create a minimal Run 3 DaVinci lbexec job for a persisted HLT2 line.",
+      "expected_skill": "davinci-run3",
+      "forbidden_skills": ["funtuple"],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "review-davinci-options",
+      "prompt": "Review my DaVinci Python function and YAML input options for Run 3.",
+      "expected_skill": "davinci-run3",
+      "forbidden_skills": [],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "diagnose-zero-line-events",
+      "prompt": "My Run 3 DaVinci line filter sees no events; check the process, stream, and TES path.",
+      "expected_skill": "davinci-run3",
+      "forbidden_skills": [],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "data-discovery-deferred",
+      "prompt": "Find the correct Run 3 bookkeeping dataset and all associated LFNs.",
+      "expected_skill": null,
+      "forbidden_skills": [
+        "lhcb-software-environment",
+        "davinci-run3",
+        "funtuple"
+      ],
+      "expected_outcome": "defer"
+    },
+    {
+      "id": "design-funtuple-fields",
+      "prompt": "Build FunTuple fields and ThOr functor collections for this Run 3 decay.",
+      "expected_skill": "funtuple",
+      "forbidden_skills": [],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "verify-funtuple-root",
+      "prompt": "Verify that my FunTuple ROOT file contains the expected tree, entries, and branches.",
+      "expected_skill": "funtuple",
+      "forbidden_skills": [],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "diagnose-empty-funtuple",
+      "prompt": "My Run 3 FunTuple output exists but its DecayTree has zero candidates.",
+      "expected_skill": "funtuple",
+      "forbidden_skills": [],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "legacy-environment-rejected",
+      "prompt": "Default my old Run 2 analysis to the current Run 3 lb-run environment without review.",
+      "expected_skill": null,
+      "forbidden_skills": [
+        "lhcb-software-environment",
+        "davinci-run3",
+        "funtuple"
+      ],
+      "expected_outcome": "reject-legacy-default"
+    },
+    {
+      "id": "legacy-davinci-rejected",
+      "prompt": "Generate a Run 2 gaudirun.py job using DaVinci().UserAlgorithms as the default.",
+      "expected_skill": null,
+      "forbidden_skills": ["davinci-run3", "funtuple"],
+      "expected_outcome": "reject-legacy-default"
+    },
+    {
+      "id": "legacy-tuple-rejected",
+      "prompt": "Use DecayTreeTuple and LoKi TupleTools as defaults for a new Run 3 ntuple.",
+      "expected_skill": null,
+      "forbidden_skills": ["davinci-run3", "funtuple"],
+      "expected_outcome": "reject-legacy-default"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "LHCb Software Environment"
+  short_description: "Select and verify a Run 3 LHCb environment"
+  default_prompt: "Use $lhcb-software-environment to select and verify an LHCb Run 3 software environment."

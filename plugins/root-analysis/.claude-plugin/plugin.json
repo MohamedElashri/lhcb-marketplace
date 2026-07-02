@@ -1,0 +1,17 @@
+{
+  "name": "root-analysis",
+  "version": "0.1.0",
+  "description": "Optional inspection and analysis of ROOT files within explicitly configured data boundaries.",
+  "author": {
+    "name": "LHCb Agent Marketplace contributors",
+    "url": "https://github.com/MohamedElashri"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ROOT",
+    "HEP",
+    "data analysis",
+    "histograms",
+    "ntuples"
+  ]
+}

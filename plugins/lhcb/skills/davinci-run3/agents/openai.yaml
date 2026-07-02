@@ -1,0 +1,4 @@
+interface:
+  display_name: "DaVinci Run 3"
+  short_description: "Configure and validate Run 3 DaVinci jobs"
+  default_prompt: "Use $davinci-run3 to create and validate a minimal LHCb Run 3 DaVinci job."

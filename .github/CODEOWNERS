@@ -1,0 +1,11 @@
+# Repository-wide ownership. Workflow-specific reviewers are added when the
+# reviewer register in docs/reviewers.md is accepted.
+* @MohamedElashri
+
+/.github/ @MohamedElashri
+/README.md @MohamedElashri
+/CONTRIBUTING.md @MohamedElashri
+/SECURITY.md @MohamedElashri
+/plugins/lhcb/skills/ @MohamedElashri
+/schemas/ @MohamedElashri
+/scripts/ @MohamedElashri

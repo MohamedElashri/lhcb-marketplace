@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "root": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--python",
+        "3.12",
+        "--from",
+        "root-mcp==0.1.7",
+        "root-mcp",
+        "--data-path",
+        "${ROOT_MCP_DATA_PATH}",
+        "--allowed-root",
+        "${ROOT_MCP_DATA_PATH}",
+        "--mode",
+        "core",
+        "--no-allow-remote",
+        "--no-export",
+        "--log-level",
+        "WARNING"
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "cerngitlab": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--python",
+        "3.12",
+        "--from",
+        "cerngitlab-mcp==0.1.7",
+        "cerngitlab-mcp",
+        "--mode",
+        "stdio"
+      ]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "lhcb",
+  "version": "0.1.0",
+  "description": "Portable skills for current LHCb Run 3 software, analysis, data discovery, and production workflows.",
+  "author": {
+    "name": "LHCb Agent Marketplace contributors",
+    "url": "https://github.com/MohamedElashri"
+  },
+  "license": "MIT",
+  "keywords": [
+    "LHCb",
+    "HEP",
+    "Run 3",
+    "DaVinci",
+    "FunTuple",
+    "Analysis Productions"
+  ],
+  "skills": "./skills/"
+}

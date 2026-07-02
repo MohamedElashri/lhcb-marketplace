@@ -1,0 +1,16 @@
+{
+  "name": "cern-code",
+  "version": "0.1.0",
+  "description": "Optional read-only discovery of public and user-authorized CERN GitLab projects and source code.",
+  "author": {
+    "name": "LHCb Agent Marketplace contributors",
+    "url": "https://github.com/MohamedElashri"
+  },
+  "license": "MIT",
+  "keywords": [
+    "CERN",
+    "GitLab",
+    "source code",
+    "LHCb"
+  ]
+}

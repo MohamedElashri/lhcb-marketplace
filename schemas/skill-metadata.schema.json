@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lhcb-agent-marketplace.example/schemas/skill-metadata.schema.json",
+  "title": "Repository requirements for Agent Skill frontmatter",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["name", "description", "license", "metadata"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 1024
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1
+    },
+    "compatibility": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "era",
+        "maintainer",
+        "last_verified",
+        "origin",
+        "sources"
+      ],
+      "properties": {
+        "era": {
+          "enum": ["run3", "run1-run2-legacy", "era-independent"]
+        },
+        "maintainer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "last_verified": {
+          "type": "string",
+          "format": "date"
+        },
+        "origin": {
+          "enum": ["original", "adapted"]
+        },
+        "sources": {
+          "type": "string",
+          "minLength": 8
+        }
+      }
+    }
+  }
+}

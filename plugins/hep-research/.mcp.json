@@ -1,0 +1,39 @@
+{
+  "mcpServers": {
+    "inspirehep": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--python",
+        "3.12",
+        "--from",
+        "inspirehep-mcp==0.1.4",
+        "inspirehep-mcp"
+      ]
+    },
+    "hepdata": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--python",
+        "3.12",
+        "--from",
+        "hepdata-mcp==0.1.0",
+        "hepdata-mcp",
+        "--transport",
+        "stdio"
+      ]
+    },
+    "cds": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--python",
+        "3.12",
+        "--from",
+        "cds-mcp==0.1.2",
+        "cds-mcp"
+      ]
+    }
+  }
+}
