@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-07-02",
+  "environment": {
+    "operating_system": "AlmaLinux 9",
+    "cvmfs_root": "/cvmfs/lhcb.cern.ch",
+    "application": "DaVinci/v65r0",
+    "platform": "x86_64_v3-el9-gcc13+detdesc-opt+g",
+    "input_access": "authenticated X.509 proxy; no credentials retained"
+  },
+  "input": {
+    "uri": "root://eoslhcb.cern.ch//eos/lhcb/wg/dpa/wp7/Run3SK/exampleDST/00257716_00000011_1.hlt2.dst",
+    "input_process": "Hlt2",
+    "simulation": true,
+    "dddb_tag": "dddb-20240427",
+    "conddb_tag": "sim10-2024.W37.39-v00.00-md100"
+  },
+  "davinci": {
+    "entrypoint": "print_decay_tree:main",
+    "exit_code": 0,
+    "processed_events": 100,
+    "selected_events": 14,
+    "printed_candidates": 14
+  },
+  "funtuple": {
+    "entrypoint": "tuple_job:main",
+    "exit_code": 0,
+    "processed_events": 100,
+    "selected_events": 14,
+    "artifact": {
+      "file": "tuple.root",
+      "tree": "BToDsPiTuple/DecayTree",
+      "entries": 14,
+      "required_branches": [
+        "B_M",
+        "B_PT",
+        "Ds_PT"
+      ]
+    }
+  }
+}

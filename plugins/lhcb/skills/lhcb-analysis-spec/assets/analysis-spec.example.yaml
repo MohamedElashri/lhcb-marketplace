@@ -1,0 +1,67 @@
+schema_version: 1
+
+analysis:
+  id: b2oc-run3-example
+  era: run3
+  use_case: measurement
+  objective: Produce and validate a compact tuple for a persisted B to Ds pi selection.
+  status: draft
+
+physics:
+  subject: B0 to (Ds- to K- K+ pi-) pi+ candidates from a persisted Run 3 line.
+  observables:
+    - candidate mass
+    - candidate transverse momentum
+
+datasets:
+  - id: collision24-magdown
+    role: signal-region data
+    kind: data
+    bookkeeping_query: /LHCb/Collision24/Beam6800GeV-VeloClosed-MagDown/Real Data/Sprucing24c4a/94000000/B2OC.DST
+    campaign: Sprucing24c4a
+    polarity: MagDown
+    input_process: TurboSpruce
+    source: https://lhcb-starterkit-run3.docs.cern.ch/first-analysis-steps/analysis-productions/
+    verified_at: "2026-07-02"
+
+software:
+  application: DaVinci/v66r7p2
+  platform: x86_64_v3-el9-gcc13-opt+g
+  entrypoint: starterkit.production_job:main
+
+selection:
+  persisted_line: Hlt2B2OC_BdToDsmPi_DsmToKpKmPim
+  tes_location: /Event/Turbo/Hlt2B2OC_BdToDsmPi_DsmToKpKmPim/Particles
+  stream: b2oc
+
+outputs:
+  file: DATA.ROOT
+  tree: BToDsPiTuple/DecayTree
+  minimum_entries: 1
+  required_branches:
+    - B_M
+    - B_PT
+    - Ds_PT
+
+validation:
+  - stage: static
+    criterion: Production and DaVinci validators pass.
+  - stage: runtime
+    criterion: lb-ap test processes events without application failures.
+  - stage: artifact
+    criterion: The expected tree has at least one entry and every required branch.
+
+decisions:
+  - id: add-simulation
+    status: open
+    owner: analysis team
+    evidence: []
+    impact: Signal efficiency cannot be measured until a simulation sample is selected.
+
+preservation:
+  code: Record the immutable AnalysisProductions revision and entrypoint.
+  environment: Record the exact DaVinci release and platform.
+  data: Record complete Bookkeeping queries and verification dates.
+  outputs: Record production IDs, ROOT tree contracts, and validation results.
+
+external_requirements: []

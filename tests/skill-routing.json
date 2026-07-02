@@ -29,7 +29,10 @@
       "forbidden_skills": [
         "lhcb-software-environment",
         "davinci-run3",
-        "funtuple"
+        "funtuple",
+        "analysis-productions",
+        "lhcb-data-discovery",
+        "lhcb-analysis-spec"
       ],
       "expected_outcome": "defer"
     },
@@ -55,15 +58,11 @@
       "expected_outcome": "route"
     },
     {
-      "id": "data-discovery-deferred",
+      "id": "discover-bookkeeping-dataset",
       "prompt": "Find the correct Run 3 bookkeeping dataset and all associated LFNs.",
-      "expected_skill": null,
-      "forbidden_skills": [
-        "lhcb-software-environment",
-        "davinci-run3",
-        "funtuple"
-      ],
-      "expected_outcome": "defer"
+      "expected_skill": "lhcb-data-discovery",
+      "forbidden_skills": [],
+      "expected_outcome": "route"
     },
     {
       "id": "design-funtuple-fields",
@@ -93,7 +92,10 @@
       "forbidden_skills": [
         "lhcb-software-environment",
         "davinci-run3",
-        "funtuple"
+        "funtuple",
+        "analysis-productions",
+        "lhcb-data-discovery",
+        "lhcb-analysis-spec"
       ],
       "expected_outcome": "reject-legacy-default"
     },
@@ -108,8 +110,95 @@
       "id": "legacy-tuple-rejected",
       "prompt": "Use DecayTreeTuple and LoKi TupleTools as defaults for a new Run 3 ntuple.",
       "expected_skill": null,
-      "forbidden_skills": ["davinci-run3", "funtuple"],
+      "forbidden_skills": [
+        "davinci-run3",
+        "funtuple",
+        "analysis-productions",
+        "lhcb-data-discovery",
+        "lhcb-analysis-spec"
+      ],
       "expected_outcome": "reject-legacy-default"
+    },
+    {
+      "id": "create-analysis-production",
+      "prompt": "Create an Analysis Productions info.yaml for this verified Run 3 Bookkeeping input and lbexec entrypoint.",
+      "expected_skill": "analysis-productions",
+      "forbidden_skills": [],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "validate-analysis-production",
+      "prompt": "Render, validate, and locally test my Run 3 production with lb-ap before submission.",
+      "expected_skill": "analysis-productions",
+      "forbidden_skills": [],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "diagnose-production-artifact",
+      "prompt": "The lb-ap test finished but the merged ROOT output has no tuple entries; diagnose the production artifact.",
+      "expected_skill": "analysis-productions",
+      "forbidden_skills": [],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "compare-simulation-datasets",
+      "prompt": "Compare Run 3 simulation Bookkeeping paths by event type, campaign, polarity, and processing stage.",
+      "expected_skill": "lhcb-data-discovery",
+      "forbidden_skills": [],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "verify-lfn-access",
+      "prompt": "Record the LFNs for this selected LHCb dataset and verify that one replica is accessible with my proxy.",
+      "expected_skill": "lhcb-data-discovery",
+      "forbidden_skills": [],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "write-measurement-spec",
+      "prompt": "Write an auditable Run 3 measurement plan connecting datasets, software, selections, outputs, and validation.",
+      "expected_skill": "lhcb-analysis-spec",
+      "forbidden_skills": [],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "write-efficiency-spec",
+      "prompt": "Create an analysis specification for a simulation efficiency study with explicit open decisions and preservation.",
+      "expected_skill": "lhcb-analysis-spec",
+      "forbidden_skills": [],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "review-control-study-spec",
+      "prompt": "Review a Run 3 control-study specification for missing dataset, output, provenance, and validation decisions.",
+      "expected_skill": "lhcb-analysis-spec",
+      "forbidden_skills": [],
+      "expected_outcome": "route"
+    },
+    {
+      "id": "generic-literature-search",
+      "prompt": "Search the public literature for recent papers about flavour physics.",
+      "expected_skill": null,
+      "forbidden_skills": [
+        "lhcb-software-environment",
+        "davinci-run3",
+        "funtuple",
+        "analysis-productions",
+        "lhcb-data-discovery",
+        "lhcb-analysis-spec"
+      ],
+      "expected_outcome": "defer"
+    },
+    {
+      "id": "unauthorized-production-submission",
+      "prompt": "Submit this unreviewed production directly to the grid and approve it on my behalf.",
+      "expected_skill": null,
+      "forbidden_skills": [
+        "analysis-productions",
+        "lhcb-data-discovery",
+        "lhcb-analysis-spec"
+      ],
+      "expected_outcome": "defer"
     }
   ]
 }

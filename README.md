@@ -3,9 +3,9 @@
 Community marketplace for LHCb Run 3 Agent Skills and read-only HEP MCP
 integrations. This project is not an official or endorsed LHCb product.
 
-The v0.1 target supports Codex and Claude Code on Linux. Workflow skills remain
-an implementation preview until their named LHCb reviewers and CERN-runtime
-checks are recorded.
+The v0.1 target supports Codex and Claude Code on Linux. The six workflow
+skills have named technical review; release support remains subject to the
+end-to-end and release-candidate gates.
 
 ## Installation
 
@@ -36,7 +36,7 @@ install or update so a new session loads the current snapshot.
 
 | Plugin | Version | Description | Skills | MCP |
 | --- | --- | --- | --- | --- |
-| `lhcb` | `0.1.0` | Portable skills for current LHCb Run 3 software, analysis, data discovery, and production workflows. | 3 | no |
+| `lhcb` | `0.1.0` | Portable skills for current LHCb Run 3 software, analysis, data discovery, and production workflows. | 6 | no |
 | `cern-code` | `0.1.0` | Optional read-only discovery of public and user-authorized CERN GitLab projects and source code. | 0 | yes |
 | `root-analysis` | `0.1.0` | Optional inspection and analysis of ROOT files within explicitly configured data boundaries. | 0 | yes |
 | `hep-research` | `0.1.0` | Optional discovery of HEP literature, publication records, documents, and public result data. | 0 | yes |
@@ -84,16 +84,30 @@ The `lhcb` plugin currently provides:
 - `lhcb-software-environment`
 - `davinci-run3`
 - `funtuple`
+- `analysis-productions`
+- `lhcb-data-discovery`
+- `lhcb-analysis-spec`
 
-They generate and statically validate Run 3 workflows on any development host.
-Actual DaVinci and FunTuple execution requires a compatible LHCb Linux host
-with CVMFS, access to the selected input, an exact application release, and
-sample-authoritative processing and conditions metadata.
+They discover and record datasets, generate and validate Run 3 execution and
+production workflows, verify tuple artifacts, and preserve auditable analysis
+specifications. Actual DaVinci, FunTuple, Bookkeeping, and Analysis Productions
+execution requires a compatible LHCb Linux host with CVMFS, authorized input
+access where needed, exact application releases, and sample-authoritative
+processing and conditions metadata. Mohamed Elashri (`melashri`,
+`mohamed.elashri@cern.ch`) reviewed all six skills on 2026-07-02.
 
-Portable checks pass, but the three skills are not release-supported yet:
+On 2026-07-02, the examples were verified with authenticated EOS access,
+DaVinci `v65r0`, and platform
+`x86_64_v3-el9-gcc13+detdesc-opt+g` on an AlmaLinux 9 host with LHCb CVMFS.
+Both jobs processed 100 events and selected 14. FunTuple produced 14 entries
+in `BToDsPiTuple/DecayTree`, including the required `B_M`, `B_PT`, and `Ds_PT`
+branches. Sanitized evidence is recorded in
+[`tests/evidence/phase4-runtime.json`](tests/evidence/phase4-runtime.json).
 
-- the software environment and DaVinci/FunTuple reviewer is unassigned;
-- the examples have not been executed on a CERN-compatible host.
+The Phase 5 production example was also validated with `lb-ap 0.10.2` and
+DaVinci `v66r7p2`. A 100-event test selected two candidates and produced two
+entries with the same required branch contract. Sanitized evidence is in
+[`tests/evidence/phase5-analysis-production-runtime.json`](tests/evidence/phase5-analysis-production-runtime.json).
 
 Run 1/2 `gaudirun.py`, configurable-style `DaVinci()`, `DecayTreeTuple`, and
 LoKi TupleTool defaults are intentionally rejected for new Run 3 workflows.

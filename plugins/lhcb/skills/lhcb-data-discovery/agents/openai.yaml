@@ -1,0 +1,4 @@
+interface:
+  display_name: "LHCb Data Discovery"
+  short_description: "Find and record Run 3 datasets"
+  default_prompt: "Use $lhcb-data-discovery to find and record an LHCb Run 3 dataset."

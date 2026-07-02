@@ -58,15 +58,16 @@ stale after six months unless an upstream change requires earlier review.
 
 | Review area | Skills | Reviewer | Status |
 | --- | --- | --- | --- |
-| Software environment and DaVinci/FunTuple | `lhcb-software-environment`, `davinci-run3`, `funtuple` | Unassigned | Blocked |
-| Analysis Productions | `analysis-productions` | Unassigned | Blocked |
-| Bookkeeping/LHCbDIRAC and data discovery | `lhcb-data-discovery` | Unassigned | Blocked |
-| Analysis planning methodology | `lhcb-analysis-spec` | Unassigned | Blocked |
+| Software environment and DaVinci/FunTuple | `lhcb-software-environment`, `davinci-run3`, `funtuple` | Mohamed Elashri ([@MohamedElashri](https://github.com/MohamedElashri), `melashri`, `mohamed.elashri@cern.ch`) | Accepted 2026-07-02 |
+| Analysis Productions | `analysis-productions` | Mohamed Elashri ([@MohamedElashri](https://github.com/MohamedElashri), `melashri`, `mohamed.elashri@cern.ch`) | Accepted 2026-07-02 |
+| Bookkeeping/LHCbDIRAC and data discovery | `lhcb-data-discovery` | Mohamed Elashri ([@MohamedElashri](https://github.com/MohamedElashri), `melashri`, `mohamed.elashri@cern.ch`) | Accepted 2026-07-02 |
+| Analysis planning methodology | `lhcb-analysis-spec` | Mohamed Elashri ([@MohamedElashri](https://github.com/MohamedElashri), `melashri`, `mohamed.elashri@cern.ch`) | Accepted 2026-07-02 |
 
-To record acceptance, replace `Unassigned` with the reviewer’s name and stable
-account, link the issue or pull request containing their evidence, update
-`CODEOWNERS`, and mark the row accepted. Review does not imply official LHCb
-endorsement.
+To record acceptance, name the reviewer and stable account, link the issue or
+pull request containing their evidence or add a versioned acceptance record,
+update `CODEOWNERS`, and mark the row accepted. Review does not imply official
+LHCb endorsement. The current acceptance record is
+[`tests/evidence/reviewer-acceptance.json`](tests/evidence/reviewer-acceptance.json).
 
 Changes to plugin boundaries, supported clients, community/official status,
 canonical skill format, licensing, write-capable integrations, shared MCP

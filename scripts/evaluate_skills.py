@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the Phase 4 positive, negative, and era-routing contract."""
+"""Validate the LHCb skill positive, negative, and era-routing contract."""
 
 from __future__ import annotations
 
@@ -50,7 +50,7 @@ def main() -> None:
             if expected is not None:
                 raise CheckError(
                     f"{CASES.relative_to(ROOT)}:{identifier}: "
-                    "legacy-default rejection cannot route to a Phase 4 skill"
+                    "legacy-default rejection cannot route to an LHCb skill"
                 )
 
     for skill in known:

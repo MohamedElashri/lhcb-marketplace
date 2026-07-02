@@ -1,0 +1,4 @@
+interface:
+  display_name: "LHCb Analysis Specification"
+  short_description: "Create auditable Run 3 analysis plans"
+  default_prompt: "Use $lhcb-analysis-spec to create an auditable LHCb Run 3 analysis specification."

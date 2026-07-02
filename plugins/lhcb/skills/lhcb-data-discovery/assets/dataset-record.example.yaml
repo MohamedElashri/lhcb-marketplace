@@ -1,0 +1,37 @@
+schema_version: 1
+
+selection:
+  era: run3
+  sample_kind: data
+  purpose: Validate a Run 3 B2OC ntupling workflow on 2024 MagDown data.
+
+bookkeeping:
+  query: /LHCb/Collision24/Beam6800GeV-VeloClosed-MagDown/Real Data/Sprucing24c4a/94000000/B2OC.DST
+  verified_at: "2026-07-02"
+  source_url: https://lhcb-starterkit-run3.docs.cern.ch/first-analysis-steps/analysis-productions/
+
+metadata:
+  year: "2024"
+  campaign: Sprucing24c4a
+  polarity: MagDown
+  file_type: B2OC.DST
+  stream: B2OC
+  event_type: null
+
+runtime:
+  input_process: TurboSpruce
+  simulation: false
+  application:
+    name: DaVinci
+    version: v66r7p2
+    platform: x86_64_v3-el9-gcc13-opt+g
+  conditions:
+    geometry_version: run3/2024.Q1.2-v00.00
+    conditions_version: master
+    dddb_tag: null
+    conddb_tag: null
+
+provenance:
+  selection_rationale: Public Run 3 Starterkit production example with an exact Bookkeeping query and configuration.
+  alternatives_considered: []
+  replica_check: requires an authorized LHCb proxy

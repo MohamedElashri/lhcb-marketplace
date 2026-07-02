@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -8,21 +9,28 @@ from pathlib import Path
 import numpy as np
 import pytest
 import uproot
+import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 SKILLS = ROOT / "plugins" / "lhcb" / "skills"
 ENV_SCRIPT = SKILLS / "lhcb-software-environment" / "scripts" / "check_environment.py"
 DV_ROOT = SKILLS / "davinci-run3"
 FT_ROOT = SKILLS / "funtuple"
+RUNTIME_EVIDENCE = ROOT / "tests" / "evidence" / "phase4-runtime.json"
 
 
-def run_script(script: Path, *arguments: object) -> subprocess.CompletedProcess[str]:
+def run_script(
+    script: Path,
+    *arguments: object,
+    env: dict[str, str] | None = None,
+) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         [sys.executable, str(script), *(str(argument) for argument in arguments)],
         cwd=ROOT,
         capture_output=True,
         text=True,
         check=False,
+        env=env,
     )
 
 
@@ -32,6 +40,26 @@ def test_environment_command_is_explicit_and_portable() -> None:
     payload = json.loads(result.stdout)
     assert payload["command"] == "lb-run DaVinci/v65r0 lbexec --help"
     assert payload["probed"] is False
+    assert "cvmfs_setup_available" in payload
+
+
+def test_environment_probe_accepts_lbexec_help_exit_one(tmp_path: Path) -> None:
+    lb_run = tmp_path / "lb-run"
+    lb_run.write_text(
+        "#!/bin/sh\nprintf 'usage: lbexec [-h] function options\\n'\nexit 1\n",
+        encoding="utf-8",
+    )
+    lb_run.chmod(0o755)
+    env = os.environ.copy()
+    env["PATH"] = f"{tmp_path}{os.pathsep}{env['PATH']}"
+
+    result = run_script(ENV_SCRIPT, "--version", "v65r0", "--probe", env=env)
+
+    assert result.returncode == 0, result.stderr
+    payload = json.loads(result.stdout)
+    assert payload["probed"] is True
+    assert payload["probe_returncode"] == 1
+    assert payload["probe_status"] == "lbexec help available"
 
 
 def test_environment_rejects_unpinned_release() -> None:
@@ -125,6 +153,27 @@ def test_funtuple_output_verifier_checks_tree_and_branches(tmp_path: Path) -> No
     )
     assert missing.returncode != 0
     assert "missing required branches" in missing.stderr
+
+
+def test_runtime_evidence_matches_checked_in_examples() -> None:
+    evidence = json.loads(RUNTIME_EVIDENCE.read_text(encoding="utf-8"))
+    dv_options = yaml.safe_load(
+        (DV_ROOT / "assets" / "options.example.yaml").read_text(encoding="utf-8")
+    )
+    ft_options = yaml.safe_load(
+        (FT_ROOT / "assets" / "options.example.yaml").read_text(encoding="utf-8")
+    )
+
+    assert evidence["environment"]["application"] == "DaVinci/v65r0"
+    assert "+detdesc-" in evidence["environment"]["platform"]
+    assert evidence["input"]["uri"] == dv_options["input_files"][0]
+    assert evidence["input"]["uri"] == ft_options["input_files"][0]
+    assert evidence["input"]["dddb_tag"] == dv_options["dddb_tag"]
+    assert evidence["input"]["conddb_tag"] == dv_options["conddb_tag"]
+    assert evidence["davinci"]["processed_events"] == dv_options["evt_max"]
+    assert evidence["funtuple"]["processed_events"] == ft_options["evt_max"]
+    assert evidence["davinci"]["selected_events"] > 0
+    assert evidence["funtuple"]["artifact"]["entries"] > 0
 
 
 @pytest.mark.parametrize(

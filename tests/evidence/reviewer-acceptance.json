@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "accepted_at": "2026-07-02",
+  "reviewer": {
+    "name": "Mohamed Elashri",
+    "account": "@MohamedElashri",
+    "cern_username": "melashri",
+    "email": "mohamed.elashri@cern.ch"
+  },
+  "accepted_skills": [
+    "lhcb-software-environment",
+    "davinci-run3",
+    "funtuple",
+    "analysis-productions",
+    "lhcb-data-discovery",
+    "lhcb-analysis-spec"
+  ],
+  "basis": "Explicit reviewer designation and acceptance supplied by the named reviewer during the Phase 5 implementation review.",
+  "evidence": [
+    "tests/evidence/phase4-runtime.json",
+    "tests/evidence/phase5-analysis-production-runtime.json"
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Analysis Productions"
+  short_description: "Build and validate Run 3 productions"
+  default_prompt: "Use $analysis-productions to create and validate an LHCb Run 3 Analysis Production."

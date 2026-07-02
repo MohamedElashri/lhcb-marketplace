@@ -9,8 +9,10 @@ import re
 import shlex
 import shutil
 import subprocess
+from pathlib import Path
 
 VERSION = re.compile(r"^v\d+r\d+(?:p\d+)?$")
+CVMFS_SETUP = Path("/cvmfs/lhcb.cern.ch/lib/LbEnv.sh")
 
 
 def main() -> None:
@@ -39,12 +41,20 @@ def main() -> None:
         "platform": args.platform,
         "command": shlex.join(command),
         "lb_run_available": shutil.which("lb-run") is not None,
+        "cvmfs_setup_available": CVMFS_SETUP.is_file(),
         "probed": False,
     }
+    if not result["lb_run_available"] and result["cvmfs_setup_available"]:
+        result["setup_hint"] = f"source {CVMFS_SETUP}"
 
     if args.probe:
         if not result["lb_run_available"]:
-            raise SystemExit("error: lb-run is unavailable on this host")
+            hint = (
+                f"; run `source {CVMFS_SETUP}` first"
+                if result["cvmfs_setup_available"]
+                else ""
+            )
+            raise SystemExit(f"error: lb-run is unavailable on this host{hint}")
         completed = subprocess.run(
             command,
             check=False,
@@ -53,10 +63,13 @@ def main() -> None:
             timeout=60,
         )
         result["probed"] = True
-        result["returncode"] = completed.returncode
-        if completed.returncode:
+        result["probe_returncode"] = completed.returncode
+        help_output = "\n".join((completed.stdout, completed.stderr)).lower()
+        # Some released lbexec versions print valid argparse help but return 1.
+        if completed.returncode and "usage: lbexec" not in help_output:
             message = (completed.stderr or completed.stdout).strip()
             raise SystemExit(f"error: environment probe failed: {message}")
+        result["probe_status"] = "lbexec help available"
 
     print(json.dumps(result, indent=2))
 

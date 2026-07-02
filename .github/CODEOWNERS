@@ -1,5 +1,4 @@
-# Repository-wide ownership. Workflow-specific reviewers are added when the
-# reviewer register in docs/reviewers.md is accepted.
+# Repository-wide ownership and accepted LHCb workflow review ownership.
 * @MohamedElashri
 
 /.github/ @MohamedElashri

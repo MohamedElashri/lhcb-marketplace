@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-07-02",
+  "environment": {
+    "operating_system": "AlmaLinux 9",
+    "cvmfs_root": "/cvmfs/lhcb.cern.ch",
+    "lb_ap_version": "0.10.2",
+    "input_access": "authenticated LHCb proxy; no credentials retained"
+  },
+  "interface_deviation": {
+    "documented_commands": [
+      "lb-ap render",
+      "lb-ap validate",
+      "lb-ap test"
+    ],
+    "installed_commands": [
+      "lb-ap test --dry-run",
+      "lb-ap test"
+    ],
+    "resolution": "The installed CLI combines rendering and validation in test --dry-run."
+  },
+  "production": {
+    "name": "starterkit",
+    "job": "BdToDsmPi_DsmToKpKmPim_24c4a_MagDown_RealData",
+    "application": "DaVinci/v66r7p2",
+    "bookkeeping_query": "/LHCb/Collision24/Beam6800GeV-VeloClosed-MagDown/Real Data/Sprucing24c4a/94000000/B2OC.DST",
+    "dry_run_exit_code": 0,
+    "test_exit_code": 0,
+    "processed_events": 100,
+    "selected_events": 2
+  },
+  "artifact": {
+    "file_type": "DATA.ROOT",
+    "tree": "BToDsPiTuple/DecayTree",
+    "entries": 2,
+    "required_branches": [
+      "B_M",
+      "B_PT",
+      "Ds_PT"
+    ]
+  }
+}

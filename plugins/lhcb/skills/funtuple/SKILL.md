@@ -35,6 +35,10 @@ the produced ROOT structure rather than assuming success from a zero exit code.
    python scripts/verify_output.py tuple.root --tree BToDsPiTuple/DecayTree
    ```
 
+   For the checked-in sample, use DaVinci `v65r0` with
+   `-c x86_64_v3-el9-gcc13+detdesc-opt+g`. The 100-event example is expected
+   to produce a non-empty tree; a shorter run may contain no selected
+   candidates.
 6. Inspect the actual ROOT keys if the expected tree differs. Verify entry
    count and required branches with repeated `--branch` arguments.
 

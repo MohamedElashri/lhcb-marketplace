@@ -35,6 +35,10 @@ data options. Keep analysis logic separate from sample-specific metadata.
    ```
 
    Add the verified `-c <platform>` after `lb-run` when required.
+   The checked-in sample was runtime-verified with DaVinci `v65r0` and
+   `-c x86_64_v3-el9-gcc13+detdesc-opt+g`; its `dddb_tag`/`conddb_tag`
+   metadata is a DetDesc contract and must not be run under a default DD4hep
+   platform.
 6. Confirm the event loop starts, the line filter behaves as expected, the TES
    input exists, and the requested artifact or log evidence is produced.
 7. Use `$funtuple` when the task moves from job execution to ntuple fields,

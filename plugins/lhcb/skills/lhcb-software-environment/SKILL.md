@@ -28,13 +28,16 @@ running an LHCb workflow. Treat the input sample metadata as authoritative.
 3. Record the application, exact version, platform, data/MC status, processing
    stage, and geometry/conditions requirements. Never substitute `latest` for
    an exact version in a reproducible command.
-4. Discover available releases with `lb-run --list <Application>`. Select the
+4. If CVMFS is mounted but `lb-run` is not already on `PATH`, initialize the
+   standard environment with
+   `source /cvmfs/lhcb.cern.ch/lib/LbEnv.sh`.
+5. Discover available releases with `lb-run --list <Application>`. Select the
    newest release that is documented as suitable for the sample, not simply
    the numerically newest release.
-5. Generate and inspect the command with
+6. Generate and inspect the command with
    `scripts/check_environment.py`. Add `--probe` only on a CERN-compatible
    host.
-6. Pass the recorded environment contract to `$davinci-run3` or the next
+7. Pass the recorded environment contract to `$davinci-run3` or the next
    application-specific skill.
 
 ## Environment selection details
@@ -71,8 +74,9 @@ defaults.
 
 ## Failure handling
 
-- If CVMFS or `lb-run` is unavailable, provide the exact command and state that
-  execution remains unverified.
+- If CVMFS is mounted but `lb-run` is unavailable, source the standard
+  `LbEnv.sh` first. If either remains unavailable, provide the exact command
+  and state that execution remains unverified.
 - If the sample metadata is incomplete, request it rather than inventing
   conditions tags, geometry, processing stage, or polarity.
 - If the selected release lacks a compatible platform, inspect available

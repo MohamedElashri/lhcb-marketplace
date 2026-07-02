@@ -1,8 +1,10 @@
 input_files:
+  # This official Starterkit input requires an authorized LHCb identity from
+  # some non-CERN sites. An authorized local copy may be used instead.
   - root://eoslhcb.cern.ch//eos/lhcb/wg/dpa/wp7/Run3SK/exampleDST/00257716_00000011_1.hlt2.dst
 input_type: ROOT
 input_process: Hlt2
-evt_max: 10
+evt_max: 100
 print_freq: 1
 simulation: true
 conddb_tag: sim10-2024.W37.39-v00.00-md100
