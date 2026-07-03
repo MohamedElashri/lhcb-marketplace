@@ -104,27 +104,6 @@ export CERN_CLIENT_SECRET="client-secret"
 Never commit credentials. Anonymous CDS record search is excluded from v0.1
 support because CERN currently returns a browser proof-of-work response.
 
-## Release 0.1.0
-
-### Release notes
-
-This community alpha contains four independent plugins, six reviewed Run 3
-skills, and five pinned read-only MCP integrations. Linux is the only
-supported v0.1 platform.
-
-### Access requirements and limitations
-
-- DaVinci, FunTuple, Bookkeeping, LHCbDIRAC, and Analysis Productions require
-  a compatible LHCb environment and authorized data access where applicable.
-- CDS supports static metadata, not anonymous record search.
-- Write-capable or shared MCP services, production submission, and clients
-  other than Codex and Claude Code are unsupported.
-
-### Migration notes
-
-There is no earlier published version to migrate. Existing environment
-variable names remain unchanged.
-
 ## Development
 
 Prerequisites are Git, `uv`, and Python 3.12.
