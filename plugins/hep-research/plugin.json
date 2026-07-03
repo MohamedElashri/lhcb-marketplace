@@ -4,7 +4,7 @@
   "name": "hep-research",
   "display_name": "HEP Research",
   "description": "Optional discovery of HEP literature, publication records, documents, and public result data.",
-  "version": "0.1.0",
+  "version": "0.1.0-rc.1",
   "author": {
     "name": "LHCb Agent Marketplace contributors",
     "url": "https://github.com/MohamedElashri"
@@ -25,7 +25,7 @@
     "default_prompts": [
       "Find recent LHCb papers about this topic.",
       "Locate the HEPData record for this measurement.",
-      "Find the corresponding CERN document record."
+      "List the static CDS experiment metadata exposed by this integration."
     ]
   },
   "capabilities": {

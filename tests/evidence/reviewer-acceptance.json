@@ -15,9 +15,9 @@
     "lhcb-data-discovery",
     "lhcb-analysis-spec"
   ],
-  "basis": "Explicit reviewer designation and acceptance supplied by the named reviewer during the Phase 5 implementation review.",
+  "basis": "Explicit reviewer designation and acceptance supplied by the named reviewer during the implementation review.",
   "evidence": [
-    "tests/evidence/phase4-runtime.json",
-    "tests/evidence/phase5-analysis-production-runtime.json"
+    "tests/evidence/davinci-funtuple-runtime.json",
+    "tests/evidence/analysis-production-runtime.json"
   ]
 }

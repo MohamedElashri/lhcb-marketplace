@@ -12,21 +12,19 @@ metadata:
 
 # DaVinci Run 3
 
-Build a modern two-file DaVinci job: a Python configuration function and YAML
-data options. Keep analysis logic separate from sample-specific metadata.
+Build a modern two-file job: a Python configuration function plus YAML data
+options.
 
 ## Workflow
 
-1. Use `$lhcb-software-environment` to record an exact DaVinci version and
-   compatible platform.
-2. Collect the input files, data/MC status, processing stage, event limit,
-   stream where applicable, and authoritative geometry/conditions metadata.
-   Do not infer tags from filenames.
+1. Use `$lhcb-software-environment` to select the release and platform.
+2. Collect input files, data/MC status, processing stage, event limit, stream,
+   and authoritative conditions metadata. Do not infer tags from filenames.
 3. Start from `assets/print_decay_tree.py` and
-   `assets/options.example.yaml`, or review equivalent user files.
-4. Replace the example line, input, processing stage, and sample metadata
-   together. Ensure the TES path and line filter refer to the same line.
-5. Run:
+   `assets/options.example.yaml`.
+4. Keep the line filter, TES path, input process, stream, and sample metadata
+   consistent.
+5. Validate and run:
 
    ```bash
    python scripts/validate_job.py module.py options.yaml
@@ -34,66 +32,29 @@ data options. Keep analysis logic separate from sample-specific metadata.
    lb-run DaVinci/<version> lbexec module:main options.yaml
    ```
 
-   Add the verified `-c <platform>` after `lb-run` when required.
-   The checked-in sample was runtime-verified with DaVinci `v65r0` and
-   `-c x86_64_v3-el9-gcc13+detdesc-opt+g`; its `dddb_tag`/`conddb_tag`
-   metadata is a DetDesc contract and must not be run under a default DD4hep
-   platform.
-6. Confirm the event loop starts, the line filter behaves as expected, the TES
-   input exists, and the requested artifact or log evidence is produced.
-7. Use `$funtuple` when the task moves from job execution to ntuple fields,
-   functors, or ROOT output verification.
-
-## Run 3 guardrails
-
-- Use `from DaVinci import Options, make_config` and return
-  `make_config(options, ...)`.
-- Run through `lbexec` with a Python function and YAML options.
-- Prefer PyConf data handles and `create_lines_filter`.
-- Reject implicit Run 1/2 defaults such as `DaVinci()`, `UserAlgorithms`,
-  `TupleFile`, configurable-style global mutation, or a default
-  `gaudirun.py` command.
-- Treat `input_process`, simulation status, tags, input stream, and raw format
-  as sample-dependent. Include only fields justified by authoritative
-  metadata.
-- Keep initial runs small and use `--dry-run` before event processing.
-
-## Job contract
-
-The Python file must expose a callable such as `main(options: Options)` and
-return `make_config(options, algorithms)`. For persisted HLT2 or Spruce
-selections, keep the event filter, TES location, input process, and stream
-consistent.
-
-The YAML options must decide `input_files`, `input_type`, `input_process`,
-`simulation`, `evt_max`, and `print_freq`. Add an input manifest, stream, raw
-format, geometry version, or conditions tags only when required by
-authoritative sample metadata.
-
-Verify in order: static validation, `lbexec --dry-run`, a small event sample,
-exit status and artifact inspection, then larger-scale execution.
+   Add `-c <platform>` when required. The included sample uses DaVinci `v65r0`
+   with `x86_64_v3-el9-gcc13+detdesc-opt+g`.
+6. Confirm the event loop, filter, TES input, and expected artifact.
+7. Use `$funtuple` for ntuple configuration or ROOT verification.
 
 ## Validation
 
-- Static validation proves structure only; it does not prove that a release,
-  TES location, conditions set, or remote input is valid.
-- Preserve the exact command, resolved release, input identity, exit status,
-  and expected artifact in the handoff.
+- Require `Options`, `make_config`, PyConf data handles, and `lbexec`.
+- Reject `DaVinci()`, `UserAlgorithms`, `TupleFile`, and default `gaudirun.py`
+  patterns for new Run 3 work.
+- Record the command, release, input identity, exit status, and artifact.
 
 ## Failure handling
 
-- If `lb-run` is unavailable, report the static result and leave runtime
-  verification open.
-- If a filter fires zero events, verify the line name, processing stage,
-  stream, and input manifest before changing analysis logic.
-- If conditions or geometry fail, return to sample metadata; never try random
-  tags until the job starts.
+- If runtime tools are unavailable, report static validation only.
+- For zero events, check line, process, stream, TES path, and input before
+  changing analysis logic.
+- For geometry or conditions failures, return to authoritative sample metadata.
 
 ## Provenance and scope
 
-The templates and validator are original community material based on public
-DaVinci and Run 3 Starterkit interfaces. They require review against the
-selected release and do not constitute official LHCb guidance.
+Original community templates based on public DaVinci and Run 3 Starterkit
+interfaces. Review them against the selected release.
 
 Sources:
 

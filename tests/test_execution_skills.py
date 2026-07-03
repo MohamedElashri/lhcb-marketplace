@@ -16,7 +16,7 @@ SKILLS = ROOT / "plugins" / "lhcb" / "skills"
 ENV_SCRIPT = SKILLS / "lhcb-software-environment" / "scripts" / "check_environment.py"
 DV_ROOT = SKILLS / "davinci-run3"
 FT_ROOT = SKILLS / "funtuple"
-RUNTIME_EVIDENCE = ROOT / "tests" / "evidence" / "phase4-runtime.json"
+RUNTIME_EVIDENCE = ROOT / "tests" / "evidence" / "davinci-funtuple-runtime.json"
 
 
 def run_script(
@@ -180,7 +180,7 @@ def test_runtime_evidence_matches_checked_in_examples() -> None:
     "skill",
     ["lhcb-software-environment", "davinci-run3", "funtuple"],
 )
-def test_phase4_skills_declare_run3_scope_and_non_triggers(skill: str) -> None:
+def test_execution_skills_declare_run3_scope_and_non_triggers(skill: str) -> None:
     text = (SKILLS / skill / "SKILL.md").read_text(encoding="utf-8")
     assert "era: run3" in text
     assert "Do not use" in text

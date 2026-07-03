@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lhcb-agent-marketplace.example/schemas/release-readiness.schema.json",
+  "title": "Release-readiness evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "candidate",
+    "prepared_at",
+    "platform",
+    "rehearsal",
+    "release_documentation",
+    "open_release_blockers",
+    "remaining_release_actions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "candidate": {
+      "const": "0.1.0-rc.1"
+    },
+    "prepared_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "platform": {
+      "const": "Linux"
+    },
+    "rehearsal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "clean_checkout",
+        "repository_gate",
+        "generated_files",
+        "clients"
+      ],
+      "properties": {
+        "clean_checkout": {
+          "const": "passed"
+        },
+        "repository_gate": {
+          "const": "passed"
+        },
+        "generated_files": {
+          "const": "current"
+        },
+        "clients": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "client",
+              "version",
+              "isolated_home",
+              "independent_install",
+              "discovery",
+              "uninstall",
+              "plugins"
+            ],
+            "properties": {
+              "client": {
+                "enum": ["codex", "claude-code"]
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1
+              },
+              "isolated_home": {
+                "const": true
+              },
+              "independent_install": {
+                "const": "passed"
+              },
+              "discovery": {
+                "const": "passed"
+              },
+              "uninstall": {
+                "const": "passed"
+              },
+              "plugins": {
+                "type": "array",
+                "minItems": 4,
+                "maxItems": 4,
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "lhcb",
+                    "cern-code",
+                    "root-analysis",
+                    "hep-research"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "release_documentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "location",
+        "github_release_notes",
+        "migration_notes",
+        "dependency_inventory",
+        "community_alpha",
+        "access_requirements",
+        "unsupported_workflows",
+        "cds_exclusion"
+      ],
+      "properties": {
+        "location": {
+          "const": "README.md"
+        },
+        "github_release_notes": {
+          "const": "prepared"
+        },
+        "migration_notes": {
+          "const": "prepared"
+        },
+        "dependency_inventory": {
+          "const": "mcp-dependencies.json"
+        },
+        "community_alpha": {
+          "const": "documented"
+        },
+        "access_requirements": {
+          "const": "documented"
+        },
+        "unsupported_workflows": {
+          "const": "documented"
+        },
+        "cds_exclusion": {
+          "const": "documented"
+        }
+      }
+    },
+    "open_release_blockers": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "remaining_release_actions": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 10
+      }
+    }
+  }
+}

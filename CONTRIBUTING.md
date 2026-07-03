@@ -1,100 +1,63 @@
 # Contributing
 
-This is a community project, not official LHCb guidance. Open an issue before
-substantial work and keep pull requests focused.
+This is a community project, not official LHCb guidance. Keep changes focused
+and open an issue before substantial work.
 
-## Contribution requirements
+## Requirements
 
-A proposal must identify:
+Describe:
 
 - the user task, plugin, and supported era;
 - authoritative public sources;
 - prerequisites, credentials, filesystem access, and side effects;
-- expected artifacts and a verification plan;
-- a maintenance owner and workflow reviewer;
-- upstream content and licensing when adaptation is proposed.
+- expected artifacts and validation;
+- the maintainer and workflow reviewer;
+- provenance and licensing for adapted content.
 
-Do not submit private documentation, internal analysis material, credentials,
-tokens, user-specific paths, or examples containing restricted data.
-
-Original contributions are MIT licensed. Adapted content retains its upstream
-license and must record the repository, immutable commit, original path,
-license, modifications, and local maintainer. External MCP packages are
-dependencies and are not relicensed by this repository.
+Do not include credentials, private documentation, restricted data, internal
+analysis material, or user-specific paths. Original work is MIT licensed.
+Adapted content must preserve its upstream license and immutable provenance.
 
 ## Development
 
 ```bash
 uv sync --python 3.12 --all-groups
-uv run python scripts/build_mcp_configs.py
-uv run python scripts/build_adapters.py
-uv run python scripts/build_catalog.py
 uv run python scripts/check_all.py
 ```
 
-Do not edit generated `.mcp.json`, client adapter manifests, or the catalog
-block in `README.md` directly.
+Use the relevant `scripts/build_*.py` command before the gate. Do not edit
+generated MCP configs, client manifests, or the README catalog directly.
 
-LHCb skill changes additionally require:
+Skill changes require current public sources, positive and negative routing
+coverage, legacy-default rejection, artifact validation, CERN-runtime or named
+manual evidence, and reviewer approval. Changes to routing descriptions must
+also meet the recorded client-routing threshold.
 
-- Agent Skills and repository metadata validation;
-- at least three positive and three negative routing cases;
-- explicit rejection of incorrect legacy defaults;
-- portable artifact checks;
-- CERN-compatible execution or named manual evidence;
-- approval from the relevant reviewer below.
+## Review
 
-Passing portable checks is not a substitute for CERN-runtime evidence.
+Maintainers own releases, security, client support, and integrations. Workflow
+reviewers own technical currency. Guidance is reviewed at least every six
+months or sooner after an upstream change.
 
-## Governance and review
+All six current skills are reviewed by Mohamed Elashri
+([@MohamedElashri](https://github.com/MohamedElashri), `melashri`,
+`mohamed.elashri@cern.ch`) as of 2026-07-02. Review does not imply official
+LHCb endorsement.
 
-Repository maintainers own architecture, releases, security, client support,
-and integration maintenance. Workflow reviewers own technical currency for
-their area. Release approval cannot substitute for missing workflow review.
-
-Every LHCb skill needs a named reviewer, authoritative sources, routing and
-artifact evidence, and a `last_verified` date. Current LHCb guidance becomes
-stale after six months unless an upstream change requires earlier review.
-
-| Review area | Skills | Reviewer | Status |
-| --- | --- | --- | --- |
-| Software environment and DaVinci/FunTuple | `lhcb-software-environment`, `davinci-run3`, `funtuple` | Mohamed Elashri ([@MohamedElashri](https://github.com/MohamedElashri), `melashri`, `mohamed.elashri@cern.ch`) | Accepted 2026-07-02 |
-| Analysis Productions | `analysis-productions` | Mohamed Elashri ([@MohamedElashri](https://github.com/MohamedElashri), `melashri`, `mohamed.elashri@cern.ch`) | Accepted 2026-07-02 |
-| Bookkeeping/LHCbDIRAC and data discovery | `lhcb-data-discovery` | Mohamed Elashri ([@MohamedElashri](https://github.com/MohamedElashri), `melashri`, `mohamed.elashri@cern.ch`) | Accepted 2026-07-02 |
-| Analysis planning methodology | `lhcb-analysis-spec` | Mohamed Elashri ([@MohamedElashri](https://github.com/MohamedElashri), `melashri`, `mohamed.elashri@cern.ch`) | Accepted 2026-07-02 |
-
-To record acceptance, name the reviewer and stable account, link the issue or
-pull request containing their evidence or add a versioned acceptance record,
-update `CODEOWNERS`, and mark the row accepted. Review does not imply official
-LHCb endorsement. The current acceptance record is
-[`tests/evidence/reviewer-acceptance.json`](tests/evidence/reviewer-acceptance.json).
-
-Changes to plugin boundaries, supported clients, community/official status,
-canonical skill format, licensing, write-capable integrations, shared MCP
-services, or release-gate waivers require explicit maintainer approval and a
-documented rationale in the pull request.
-
-## Conduct
-
-Participation must remain professional and technically constructive. Critique
-claims and evidence rather than people; respect confidentiality, authorship,
-licenses, identities, and institutional boundaries. Harassment,
-discrimination, threats, publication of private information, deliberate
-misrepresentation, retaliation, and repeated disruption are unacceptable.
-
-Report conduct concerns privately to maintainers. Do not open a public issue
-when doing so would expose a reporter, affected person, or confidential
-information.
+Changes to plugin boundaries, supported clients, official status, canonical
+skill format, licensing, write access, shared services, or release-gate
+waivers require maintainer approval.
 
 ## Pull requests
 
-State:
+State the user-visible effect, validation, access or security impact,
+provenance, reviewer, and remaining limitations. Use a short imperative commit
+summary.
 
-- scope and user-visible effect;
-- validation and reviewer evidence;
-- access and security implications;
-- provenance and license impact;
-- remaining limitations.
+## Conduct
 
-Use a short imperative commit summary. Maintainers may disable unsafe, stale,
-or unmaintained content while it is reviewed.
+Be professional and respect confidentiality, authorship, licenses, and
+identity. Harassment, discrimination, threats, disclosure of private
+information, deliberate misrepresentation, retaliation, and repeated
+disruption are unacceptable. Report security or conduct concerns privately
+when public disclosure could cause harm.

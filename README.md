@@ -1,11 +1,9 @@
 # LHCb Agent Marketplace
 
-Community marketplace for LHCb Run 3 Agent Skills and read-only HEP MCP
-integrations. This project is not an official or endorsed LHCb product.
+Community marketplace for LHCb Run 3 Agent Skills and optional read-only HEP
+integrations. This is not an official or endorsed LHCb product.
 
-The v0.1 target supports Codex and Claude Code on Linux. The six workflow
-skills have named technical review; release support remains subject to the
-end-to-end and release-candidate gates.
+The community-alpha release supports Codex and Claude Code on Linux.
 
 ## Installation
 
@@ -25,9 +23,19 @@ claude plugin marketplace add /absolute/path/to/lhcb-marketplace --scope user
 claude plugin install lhcb@lhcb-agent-marketplace
 ```
 
-Install only the plugin you need. Replace `lhcb` with `cern-code`,
-`root-analysis`, or `hep-research` as appropriate. Restart the client after an
-install or update so a new session loads the current snapshot.
+Replace `lhcb` with `cern-code`, `root-analysis`, or `hep-research` as needed.
+Plugins are independent; install only what you use. Restart the client after
+installing or updating a plugin.
+
+To refresh a local installation:
+
+```bash
+codex plugin remove lhcb@lhcb-agent-marketplace
+codex plugin add lhcb@lhcb-agent-marketplace
+
+claude plugin marketplace update lhcb-agent-marketplace
+claude plugin update lhcb@lhcb-agent-marketplace --scope user
+```
 
 ## Plugins
 
@@ -36,50 +44,15 @@ install or update so a new session loads the current snapshot.
 
 | Plugin | Version | Description | Skills | MCP |
 | --- | --- | --- | --- | --- |
-| `lhcb` | `0.1.0` | Portable skills for current LHCb Run 3 software, analysis, data discovery, and production workflows. | 6 | no |
-| `cern-code` | `0.1.0` | Optional read-only discovery of public and user-authorized CERN GitLab projects and source code. | 0 | yes |
-| `root-analysis` | `0.1.0` | Optional inspection and analysis of ROOT files within explicitly configured data boundaries. | 0 | yes |
-| `hep-research` | `0.1.0` | Optional discovery of HEP literature, publication records, documents, and public result data. | 0 | yes |
+| `lhcb` | `0.1.0-rc.1` | Portable skills for current LHCb Run 3 software, analysis, data discovery, and production workflows. | 6 | no |
+| `cern-code` | `0.1.0-rc.1` | Optional read-only discovery of public and user-authorized CERN GitLab projects and source code. | 0 | yes |
+| `root-analysis` | `0.1.0-rc.1` | Optional inspection and analysis of ROOT files within explicitly configured data boundaries. | 0 | yes |
+| `hep-research` | `0.1.0-rc.1` | Optional discovery of HEP literature, publication records, documents, and public result data. | 0 | yes |
 <!-- catalog:end -->
-
-## MCP integrations
-
-All MCP servers run locally over stdio through `uvx`; no shared service is
-deployed. Pins, licenses, wheel hashes, environment variables, and smoke calls
-are recorded in [`mcp-dependencies.json`](mcp-dependencies.json).
-
-| Plugin | Servers | Default access |
-| --- | --- | --- |
-| `cern-code` | `cerngitlab-mcp==0.1.7` | Public CERN GitLab; optional `CERNGITLAB_TOKEN` with read-only scope |
-| `root-analysis` | `root-mcp==0.1.7` | Explicit local directory only |
-| `hep-research` | `inspirehep-mcp==0.1.4`, `hepdata-mcp==0.1.0`, `cds-mcp==0.1.2` | Public metadata; optional CERN CDS credentials |
-
-MCP execution is pinned to Python 3.12. ROOT requires an existing absolute
-directory and fails closed when it is absent:
-
-```bash
-export ROOT_MCP_DATA_PATH="/absolute/path/to/root-files"
-```
-
-The generated ROOT configuration uses that value for both the data path and
-allowed root, disables remote access and export, and does not enable native
-ROOT code execution.
-
-Optional authenticated access:
-
-```bash
-export CERNGITLAB_TOKEN="read-only-token"
-export CERN_CLIENT_ID="client-id"
-export CERN_CLIENT_SECRET="client-secret"
-```
-
-Never commit credentials. As verified on 2026-07-02, anonymous CDS record
-search is redirected to a browser proof-of-work page and is degraded in
-`cds-mcp==0.1.2`; initialization and static experiment metadata work.
 
 ## LHCb skills
 
-The `lhcb` plugin currently provides:
+The `lhcb` plugin provides:
 
 - `lhcb-software-environment`
 - `davinci-run3`
@@ -88,29 +61,63 @@ The `lhcb` plugin currently provides:
 - `lhcb-data-discovery`
 - `lhcb-analysis-spec`
 
-They discover and record datasets, generate and validate Run 3 execution and
-production workflows, verify tuple artifacts, and preserve auditable analysis
-specifications. Actual DaVinci, FunTuple, Bookkeeping, and Analysis Productions
-execution requires a compatible LHCb Linux host with CVMFS, authorized input
-access where needed, exact application releases, and sample-authoritative
-processing and conditions metadata. Mohamed Elashri (`melashri`,
-`mohamed.elashri@cern.ch`) reviewed all six skills on 2026-07-02.
+The skills target current Run 3 workflows. Runtime work may require LHCb
+CVMFS, exact application releases, Bookkeeping or LHCbDIRAC access, and an
+authorized proxy. Run 1/2 DaVinci, Stripping, LoKi, and DecayTreeTuple are not
+supported defaults.
 
-On 2026-07-02, the examples were verified with authenticated EOS access,
-DaVinci `v65r0`, and platform
-`x86_64_v3-el9-gcc13+detdesc-opt+g` on an AlmaLinux 9 host with LHCb CVMFS.
-Both jobs processed 100 events and selected 14. FunTuple produced 14 entries
-in `BToDsPiTuple/DecayTree`, including the required `B_M`, `B_PT`, and `Ds_PT`
-branches. Sanitized evidence is recorded in
-[`tests/evidence/phase4-runtime.json`](tests/evidence/phase4-runtime.json).
+## MCP integrations
 
-The Phase 5 production example was also validated with `lb-ap 0.10.2` and
-DaVinci `v66r7p2`. A 100-event test selected two candidates and produced two
-entries with the same required branch contract. Sanitized evidence is in
-[`tests/evidence/phase5-analysis-production-runtime.json`](tests/evidence/phase5-analysis-production-runtime.json).
+All MCP servers run locally over stdio through `uvx` and are read-only by
+default. Exact versions, licenses, and configuration are recorded in
+[`mcp-dependencies.json`](mcp-dependencies.json).
 
-Run 1/2 `gaudirun.py`, configurable-style `DaVinci()`, `DecayTreeTuple`, and
-LoKi TupleTool defaults are intentionally rejected for new Run 3 workflows.
+| Plugin | Servers | Access |
+| --- | --- | --- |
+| `cern-code` | `cerngitlab-mcp==0.1.7` | Public CERN GitLab; optional read-only token |
+| `root-analysis` | `root-mcp==0.1.7` | Explicit local directory only |
+| `hep-research` | INSPIRE-HEP, HEPData, CDS | Public INSPIRE/HEPData queries; CDS static metadata only |
+
+MCP execution uses Python 3.12. ROOT MCP requires:
+
+```bash
+export ROOT_MCP_DATA_PATH="/absolute/path/to/root-files"
+```
+
+That directory is also the allowed root; remote access, export, and native
+ROOT execution are disabled.
+
+Optional authenticated access uses environment variables:
+
+```bash
+export CERNGITLAB_TOKEN="read-only-token"
+export CERN_CLIENT_ID="client-id"
+export CERN_CLIENT_SECRET="client-secret"
+```
+
+Never commit credentials. Anonymous CDS record search is excluded from v0.1
+support because CERN currently returns a browser proof-of-work response.
+
+## Release candidate: 0.1.0-rc.1
+
+### Release notes
+
+This community alpha contains four independent plugins, six reviewed Run 3
+skills, and five pinned read-only MCP integrations. Linux is the only
+supported v0.1 platform.
+
+### Access requirements and limitations
+
+- DaVinci, FunTuple, Bookkeeping, LHCbDIRAC, and Analysis Productions require
+  a compatible LHCb environment and authorized data access where applicable.
+- CDS supports static metadata, not anonymous record search.
+- Write-capable or shared MCP services, production submission, and clients
+  other than Codex and Claude Code are unsupported.
+
+### Migration notes
+
+There is no earlier published version to migrate. Existing environment
+variable names remain unchanged.
 
 ## Development
 
@@ -118,35 +125,12 @@ Prerequisites are Git, `uv`, and Python 3.12.
 
 ```bash
 uv sync --python 3.12 --all-groups
-uv run python scripts/build_mcp_configs.py
-uv run python scripts/build_adapters.py
-uv run python scripts/build_catalog.py
 uv run python scripts/check_all.py
+uv run python scripts/rehearse_release.py
 ```
 
-Network-dependent checks are opt-in:
+Regenerate MCP configs, client adapters, and the catalog with their
+`scripts/build_*.py` commands; do not edit generated output directly.
 
-```bash
-uv run python scripts/check_mcp_releases.py
-uv run python scripts/smoke_mcp.py --all --live
-```
-
-The repository gate validates schemas, generated files, Agent Skills, routing
-cases, provenance, tests, and formatting. See [`CONTRIBUTING.md`](CONTRIBUTING.md)
-for project policy and review requirements and [`SECURITY.md`](SECURITY.md) for
-security reporting.
-
-## Project policy
-
-- Original repository content is MIT licensed. External MCP packages retain
-  their own licenses.
-- Adapted content must retain required notices and machine-checkable
-  provenance.
-- Skills must remain useful when optional MCP plugins are absent.
-- No credential, private URL, internal document, restricted data, or
-  user-specific path may be committed.
-- Plugin boundaries, supported clients, canonical skill format, write-capable
-  integrations, shared services, and official-status claims require explicit
-  maintainer review.
-
-Contributions are welcome through focused issues and pull requests.
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for contribution and review policy and
+[`SECURITY.md`](SECURITY.md) for security reporting.

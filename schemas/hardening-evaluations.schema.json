@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lhcb-agent-marketplace.example/schemas/hardening-evaluations.schema.json",
+  "title": "End-to-end and adversarial evaluations",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "cross_skill_scenarios", "adversarial_cases"],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "cross_skill_scenarios": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "steps", "expected_artifacts"],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/identifier"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 10
+          },
+          "steps": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["component", "action", "trust_boundary"],
+              "properties": {
+                "component": {
+                  "type": "string"
+                },
+                "action": {
+                  "type": "string",
+                  "minLength": 10
+                },
+                "trust_boundary": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "expected_artifacts": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 3
+            }
+          }
+        }
+      }
+    },
+    "adversarial_cases": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "category",
+          "prompt",
+          "expected_decision",
+          "required_controls",
+          "automated_evidence"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/identifier"
+          },
+          "category": {
+            "enum": [
+              "incorrect-era",
+              "missing-credentials",
+              "untrusted-instructions",
+              "unsafe-file-path",
+              "excessive-permissions"
+            ]
+          },
+          "prompt": {
+            "type": "string",
+            "minLength": 20
+          },
+          "expected_decision": {
+            "enum": ["defer", "deny", "fallback", "reject-legacy-default"]
+          },
+          "required_controls": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 5
+            }
+          },
+          "automated_evidence": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9._/-]+(?:#[A-Za-z0-9._/-]+)?$"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    }
+  }
+}

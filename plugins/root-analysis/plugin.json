@@ -4,7 +4,7 @@
   "name": "root-analysis",
   "display_name": "ROOT Analysis",
   "description": "Optional inspection and analysis of ROOT files within explicitly configured data boundaries.",
-  "version": "0.1.0",
+  "version": "0.1.0-rc.1",
   "author": {
     "name": "LHCb Agent Marketplace contributors",
     "url": "https://github.com/MohamedElashri"

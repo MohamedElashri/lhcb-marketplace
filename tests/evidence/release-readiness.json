@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "candidate": "0.1.0-rc.1",
+  "prepared_at": "2026-07-02",
+  "platform": "Linux",
+  "rehearsal": {
+    "clean_checkout": "passed",
+    "repository_gate": "passed",
+    "generated_files": "current",
+    "clients": [
+      {
+        "client": "codex",
+        "version": "0.142.5",
+        "isolated_home": true,
+        "independent_install": "passed",
+        "discovery": "passed",
+        "uninstall": "passed",
+        "plugins": [
+          "lhcb",
+          "cern-code",
+          "root-analysis",
+          "hep-research"
+        ]
+      },
+      {
+        "client": "claude-code",
+        "version": "2.1.165",
+        "isolated_home": true,
+        "independent_install": "passed",
+        "discovery": "passed",
+        "uninstall": "passed",
+        "plugins": [
+          "lhcb",
+          "cern-code",
+          "root-analysis",
+          "hep-research"
+        ]
+      }
+    ]
+  },
+  "release_documentation": {
+    "location": "README.md",
+    "github_release_notes": "prepared",
+    "migration_notes": "prepared",
+    "dependency_inventory": "mcp-dependencies.json",
+    "community_alpha": "documented",
+    "access_requirements": "documented",
+    "unsupported_workflows": "documented",
+    "cds_exclusion": "documented"
+  },
+  "open_release_blockers": [],
+  "remaining_release_actions": [
+    "Resolve any findings reported against the release candidate.",
+    "Create the six-month verification schedule for all six LHCb skills.",
+    "Open the owned CDS compatibility issue and schedule its re-test.",
+    "Tag and publish the tested candidate as 0.1.0."
+  ]
+}

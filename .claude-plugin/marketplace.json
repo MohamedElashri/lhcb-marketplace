@@ -16,7 +16,7 @@
         "url": "https://github.com/MohamedElashri"
       },
       "source": "./plugins/lhcb",
-      "version": "0.1.0",
+      "version": "0.1.0-rc.1",
       "keywords": [
         "LHCb",
         "HEP",
@@ -35,7 +35,7 @@
         "url": "https://github.com/MohamedElashri"
       },
       "source": "./plugins/cern-code",
-      "version": "0.1.0",
+      "version": "0.1.0-rc.1",
       "keywords": [
         "CERN",
         "GitLab",
@@ -51,7 +51,7 @@
         "url": "https://github.com/MohamedElashri"
       },
       "source": "./plugins/root-analysis",
-      "version": "0.1.0",
+      "version": "0.1.0-rc.1",
       "keywords": [
         "ROOT",
         "HEP",
@@ -68,7 +68,7 @@
         "url": "https://github.com/MohamedElashri"
       },
       "source": "./plugins/hep-research",
-      "version": "0.1.0",
+      "version": "0.1.0-rc.1",
       "keywords": [
         "HEP",
         "INSPIRE-HEP",

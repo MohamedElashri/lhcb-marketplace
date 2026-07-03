@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -11,6 +12,20 @@ import yaml
 from scripts._lib import CheckError, read_skill_frontmatter, validate_json
 
 ROOT = Path(__file__).resolve().parent.parent
+DEVELOPMENT_STAGE = re.compile(
+    r"\b" + "Pha" + r"se[-_ ]*[0-9]+\b",
+    flags=re.IGNORECASE,
+)
+LOCAL_ONLY_PARTS = {
+    ".codex",
+    ".git",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".uv-cache",
+    ".uv-tools",
+    ".venv",
+    "__pycache__",
+}
 
 
 @pytest.mark.parametrize(
@@ -22,6 +37,8 @@ ROOT = Path(__file__).resolve().parent.parent
         "check_adapters.py",
         "check_skills.py",
         "evaluate_skills.py",
+        "check_hardening.py",
+        "check_release_readiness.py",
         "check_provenance.py",
     ],
 )
@@ -107,6 +124,25 @@ def test_public_markdown_surface_stays_small() -> None:
     }
     assert plugin_markdown
     assert all(path.name == "SKILL.md" for path in plugin_markdown)
+
+
+def test_release_surface_has_no_development_stage_references() -> None:
+    text_suffixes = {
+        ".json",
+        ".md",
+        ".py",
+        ".toml",
+        ".yaml",
+        ".yml",
+    }
+    for path in ROOT.rglob("*"):
+        relative = path.relative_to(ROOT)
+        if path == ROOT / "plan.md" or LOCAL_ONLY_PARTS & set(relative.parts):
+            continue
+        assert "phase" not in path.name.lower(), relative
+        if path.is_file() and path.suffix in text_suffixes:
+            text = path.read_text(encoding="utf-8")
+            assert DEVELOPMENT_STAGE.search(text) is None, relative
 
 
 @pytest.mark.parametrize(

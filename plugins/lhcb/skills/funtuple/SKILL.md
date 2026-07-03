@@ -12,78 +12,47 @@ metadata:
 
 # FunTuple
 
-Configure only the fields and variables required by the analysis, then verify
-the produced ROOT structure rather than assuming success from a zero exit code.
+Configure only required fields and variables, then verify the ROOT output.
 
 ## Workflow
 
-1. Use `$davinci-run3` for the surrounding application, input, line filter, and
-   YAML options.
-2. Record the exact persisted decay descriptor used by the input selection.
-   Define one unique field name per desired particle and place exactly one
-   caret for each non-head field.
-3. Build `FunctorCollection` objects from explicit ThOr functors or current
-   `FunTuple.functorcollections`. Separate candidate and event variables.
-4. Keep field keys synchronized with the `variables` mapping. Do not add
-   speculative variables or silently translate legacy LoKi TupleTools.
-5. Adapt `assets/tuple_job.py` and `assets/options.example.yaml`, then run:
+1. Use `$davinci-run3` for the application, input, filter, and YAML options.
+2. Match fields to the exact persisted decay descriptor. Use one field name
+   per particle and one caret for each non-head field.
+3. Build `FunctorCollection` objects with current ThOr functors. Keep field
+   keys synchronized with `variables` and separate event variables.
+4. Adapt `assets/tuple_job.py` and `assets/options.example.yaml`, then run:
 
    ```bash
    python scripts/validate_config.py tuple_job.py options.yaml
    lb-run DaVinci/<version> lbexec --dry-run tuple_job:main options.yaml
    lb-run DaVinci/<version> lbexec tuple_job:main options.yaml
-   python scripts/verify_output.py tuple.root --tree BToDsPiTuple/DecayTree
+   python scripts/verify_output.py tuple.root \
+     --tree BToDsPiTuple/DecayTree --branch B_M
    ```
 
-   For the checked-in sample, use DaVinci `v65r0` with
-   `-c x86_64_v3-el9-gcc13+detdesc-opt+g`. The 100-event example is expected
-   to produce a non-empty tree; a shorter run may contain no selected
-   candidates.
-6. Inspect the actual ROOT keys if the expected tree differs. Verify entry
-   count and required branches with repeated `--branch` arguments.
-
-## Run 3 guardrails
-
-- Use `FunTuple_Particles`, `fields`, `variables`, `tuple_name`, and `inputs`.
-- Prefer ThOr functors and current functor collections.
-- Reject `DecayTreeTuple`, `TupleTool*`, `addBranches`, and default Run 1/2
-  LoKi patterns unless the user explicitly requests a legacy workflow.
-- Make the descriptor match the persisted input selection; a physically
-  equivalent descriptor is not necessarily structurally compatible.
-- Keep an event pre-filter aligned with the selected HLT2 or Spruce line.
-- Treat MC truth, trigger information, isolation, and fitter outputs as
-  separate, sample-dependent additions that require targeted validation.
-
-## Output contract
-
-Before execution, record the output filename, expected tree path, minimum
-entry count, required branches, release, and sample identity. After execution,
-list the actual ROOT keys and validate the tree and branches. A created file is
-not sufficient evidence.
-
-For empty output, check input access, process and stream, line and filter, TES
-location, descriptor compatibility, then functor errors—in that order. Do not
-weaken physics selections merely to make an artifact non-empty.
+   The included sample uses DaVinci `v65r0` with
+   `x86_64_v3-el9-gcc13+detdesc-opt+g`.
+5. Verify the expected tree, non-zero entries, and all required branches.
 
 ## Validation
 
-- Run the static validator before execution and the ROOT verifier afterward.
-- Treat a missing tree, zero entries, or missing branches as a failed artifact.
-- Record the tuple file, tree path, entry count, required branches, DaVinci
-  release, and execution command.
+- Require `FunTuple_Particles`, `fields`, `variables`, `tuple_name`, and
+  `inputs`.
+- Reject `DecayTreeTuple`, `TupleTool*`, and default LoKi patterns.
+- Record the output file, tree, entry count, branches, release, and command.
 
 ## Failure handling
 
-- On zero candidates, inspect the input process, stream, line, TES location,
-  filter, and descriptor before modifying cuts or functors.
-- On a missing functor, check the selected DaVinci release documentation; do
-  not substitute a similarly named legacy functor.
+- For empty output, check access, process, stream, line, TES path, filter, and
+  descriptor before changing cuts.
+- For missing functors, consult the selected release documentation; do not
+  substitute legacy equivalents.
 
 ## Provenance and scope
 
-The template and validators are original community material based on public
-DaVinci and Run 3 Starterkit interfaces. Physics-variable selection remains an
-analysis decision and requires review.
+Original community templates based on public DaVinci and Run 3 Starterkit
+interfaces. Physics-variable selection remains an analysis decision.
 
 Sources:
 

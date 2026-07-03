@@ -15,7 +15,7 @@ SKILLS = ROOT / "plugins" / "lhcb" / "skills"
 AP_ROOT = SKILLS / "analysis-productions"
 DATA_ROOT = SKILLS / "lhcb-data-discovery"
 SPEC_ROOT = SKILLS / "lhcb-analysis-spec"
-AP_EVIDENCE = ROOT / "tests" / "evidence" / "phase5-analysis-production-runtime.json"
+AP_EVIDENCE = ROOT / "tests" / "evidence" / "analysis-production-runtime.json"
 REVIEW_EVIDENCE = ROOT / "tests" / "evidence" / "reviewer-acceptance.json"
 
 
@@ -156,7 +156,7 @@ def test_analysis_spec_rejects_dataset_without_provenance(tmp_path: Path) -> Non
     assert "datasets[0].source" in result.stderr
 
 
-def test_phase5_runtime_evidence_matches_assets() -> None:
+def test_analysis_production_runtime_evidence_matches_assets() -> None:
     evidence = json.loads(AP_EVIDENCE.read_text(encoding="utf-8"))
     info = yaml.safe_load(
         (AP_ROOT / "assets" / "starterkit" / "info.yaml").read_text(encoding="utf-8")

@@ -1,29 +1,18 @@
-## Scope
+## Summary
 
-Describe the user-visible outcome and what is intentionally out of scope.
+Describe the user-visible result and scope.
 
-## Validation
+## Verification
 
-List the exact checks performed and any checks that could not run.
-
-## Access and security
-
-Describe credentials, filesystem access, network access, external content, or
-side effects introduced or changed. Write "None" when not applicable.
-
-## Provenance and licensing
-
-Identify copied or adapted content and its provenance record. Write "Original
-work only" when not applicable.
+List checks run and anything not verified.
 
 ## Review
 
-Name the required workflow or integration reviewer, if any.
+Note security or access changes, adapted-content provenance, required reviewer,
+and remaining limitations. Write “None” where applicable.
 
 ## Checklist
 
-- [ ] The change is focused and preserves unrelated behavior.
-- [ ] Tests and documentation cover changed behavior.
 - [ ] Generated files are current.
 - [ ] No secret, private content, or user-specific path is included.
-- [ ] Supported-client and platform claims are backed by verification.
+- [ ] Client and platform claims are verified.

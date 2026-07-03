@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "completed_at": "2026-07-02",
+  "routing_measurement": {
+    "method": "Fresh non-interactive sessions classified only case IDs and prompts against the installed local lhcb plugin; expected labels were withheld from both clients.",
+    "accepted_accuracy": 0.9,
+    "clients": [
+      {
+        "client": "codex",
+        "version": "0.142.5",
+        "model": "gpt-5.5",
+        "predictions": [
+          {"id": "select-released-environment", "selected_skill": "lhcb-software-environment"},
+          {"id": "probe-lbexec", "selected_skill": "lhcb-software-environment"},
+          {"id": "create-development-build", "selected_skill": "lhcb-software-environment"},
+          {"id": "generic-python-venv", "selected_skill": null},
+          {"id": "minimal-davinci-job", "selected_skill": "davinci-run3"},
+          {"id": "review-davinci-options", "selected_skill": "davinci-run3"},
+          {"id": "diagnose-zero-line-events", "selected_skill": "davinci-run3"},
+          {"id": "discover-bookkeeping-dataset", "selected_skill": "lhcb-data-discovery"},
+          {"id": "design-funtuple-fields", "selected_skill": "funtuple"},
+          {"id": "verify-funtuple-root", "selected_skill": "funtuple"},
+          {"id": "diagnose-empty-funtuple", "selected_skill": "funtuple"},
+          {"id": "legacy-environment-rejected", "selected_skill": null},
+          {"id": "legacy-davinci-rejected", "selected_skill": null},
+          {"id": "legacy-tuple-rejected", "selected_skill": null},
+          {"id": "create-analysis-production", "selected_skill": "analysis-productions"},
+          {"id": "validate-analysis-production", "selected_skill": "analysis-productions"},
+          {"id": "diagnose-production-artifact", "selected_skill": "analysis-productions"},
+          {"id": "compare-simulation-datasets", "selected_skill": "lhcb-data-discovery"},
+          {"id": "verify-lfn-access", "selected_skill": "lhcb-data-discovery"},
+          {"id": "write-measurement-spec", "selected_skill": "lhcb-analysis-spec"},
+          {"id": "write-efficiency-spec", "selected_skill": "lhcb-analysis-spec"},
+          {"id": "review-control-study-spec", "selected_skill": "lhcb-analysis-spec"},
+          {"id": "generic-literature-search", "selected_skill": null},
+          {"id": "unauthorized-production-submission", "selected_skill": null}
+        ]
+      },
+      {
+        "client": "claude-code",
+        "version": "2.1.165",
+        "model": "claude-sonnet-4-6",
+        "predictions": [
+          {"id": "select-released-environment", "selected_skill": "lhcb-software-environment"},
+          {"id": "probe-lbexec", "selected_skill": "lhcb-software-environment"},
+          {"id": "create-development-build", "selected_skill": "lhcb-software-environment"},
+          {"id": "generic-python-venv", "selected_skill": null},
+          {"id": "minimal-davinci-job", "selected_skill": "davinci-run3"},
+          {"id": "review-davinci-options", "selected_skill": "davinci-run3"},
+          {"id": "diagnose-zero-line-events", "selected_skill": "davinci-run3"},
+          {"id": "discover-bookkeeping-dataset", "selected_skill": "lhcb-data-discovery"},
+          {"id": "design-funtuple-fields", "selected_skill": "funtuple"},
+          {"id": "verify-funtuple-root", "selected_skill": "funtuple"},
+          {"id": "diagnose-empty-funtuple", "selected_skill": "funtuple"},
+          {"id": "legacy-environment-rejected", "selected_skill": null},
+          {"id": "legacy-davinci-rejected", "selected_skill": null},
+          {"id": "legacy-tuple-rejected", "selected_skill": null},
+          {"id": "create-analysis-production", "selected_skill": "analysis-productions"},
+          {"id": "validate-analysis-production", "selected_skill": "analysis-productions"},
+          {"id": "diagnose-production-artifact", "selected_skill": "analysis-productions"},
+          {"id": "compare-simulation-datasets", "selected_skill": "lhcb-data-discovery"},
+          {"id": "verify-lfn-access", "selected_skill": "lhcb-data-discovery"},
+          {"id": "write-measurement-spec", "selected_skill": "lhcb-analysis-spec"},
+          {"id": "write-efficiency-spec", "selected_skill": "lhcb-analysis-spec"},
+          {"id": "review-control-study-spec", "selected_skill": "lhcb-analysis-spec"},
+          {"id": "generic-literature-search", "selected_skill": null},
+          {"id": "unauthorized-production-submission", "selected_skill": null}
+        ]
+      }
+    ]
+  },
+  "runtime_revalidation": {
+    "revalidated_at": "2026-07-02",
+    "host": "AlmaLinux 9 with mounted LHCb CVMFS and a valid LHCb proxy",
+    "preserved_evidence": [
+      {
+        "path": "tests/evidence/davinci-funtuple-runtime.json",
+        "sha256": "699366e7514fa6d213f5b47fd5e30cd27aa0c92d793ef5fceb207383c06f0c28",
+        "status": "passed"
+      },
+      {
+        "path": "tests/evidence/analysis-production-runtime.json",
+        "sha256": "30ededc90153df440f328cc54a157b19bf6034b362761d9dd81511d51e2da656",
+        "status": "passed"
+      }
+    ],
+    "fresh_run_observation": {
+      "status": "blocked-external",
+      "stage": "remote input open before event processing",
+      "reason": "The site's current XRootD client rejected the public EOS endpoint as an invalid address, including with the valid proxy exported.",
+      "impact": "No new artifact claim was made; the previously successful, reviewer-accepted runtime evidence remains the release basis and passed structural and digest revalidation."
+    }
+  },
+  "audits": [
+    {
+      "name": "provenance",
+      "status": "passed",
+      "evidence": "scripts/check_provenance.py and the complete repository gate"
+    },
+    {
+      "name": "dependencies",
+      "status": "passed",
+      "evidence": "scripts/check_mcp_releases.py verified all five current PyPI pins and wheel hashes"
+    },
+    {
+      "name": "secrets",
+      "status": "passed",
+      "evidence": "Gitleaks v8.30.1 scanned the working tree with redacted output"
+    },
+    {
+      "name": "documentation",
+      "status": "passed",
+      "evidence": "Hardening checks require supported surfaces, owners, milestones, and generated-file consistency"
+    }
+  ],
+  "cds_search": {
+    "retested_at": "2026-07-02",
+    "package": "cds-mcp==0.1.2",
+    "anonymous_search": "failed",
+    "decision": "excluded-from-v0.1-support",
+    "supported_surface": "Server initialization, tool discovery, and static experiment metadata only.",
+    "owner": "Mohamed Elashri (marketplace maintainer)",
+    "follow_up_milestone": "Open an upstream compatibility issue before 0.1.0 and retest by 2026-10-02."
+  },
+  "open_critical_issues": [],
+  "known_limitations": [
+    {
+      "limitation": "Anonymous CDS record search is excluded from v0.1 support.",
+      "owner": "Mohamed Elashri",
+      "milestone": "Upstream issue before 0.1.0 and retest by 2026-10-02"
+    },
+    {
+      "limitation": "Fresh remote-input runtime replay is sensitive to site XRootD availability.",
+      "owner": "LHCb workflow reviewer",
+      "milestone": "Clean-checkout release rehearsal"
+    }
+  ]
+}

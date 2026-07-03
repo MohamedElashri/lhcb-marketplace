@@ -1,6 +1,6 @@
 {
   "name": "hep-research",
-  "version": "0.1.0",
+  "version": "0.1.0-rc.1",
   "description": "Optional discovery of HEP literature, publication records, documents, and public result data.",
   "author": {
     "name": "LHCb Agent Marketplace contributors",
@@ -27,7 +27,7 @@
     "defaultPrompt": [
       "Find recent LHCb papers about this topic.",
       "Locate the HEPData record for this measurement.",
-      "Find the corresponding CERN document record."
+      "List the static CDS experiment metadata exposed by this integration."
     ]
   },
   "mcpServers": "./.mcp.json"
