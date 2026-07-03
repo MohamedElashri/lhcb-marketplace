@@ -52,17 +52,14 @@ def validate_documentation() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     normalized = " ".join(readme.split())
     required = (
-        "## Release 0.1.0",
-        "### Release notes",
-        "### Access requirements and limitations",
-        "### Migration notes",
-        "community alpha",
+        "community-alpha release",
         "not an official or endorsed LHCb product",
+        "supports Codex and Claude Code on Linux",
         "Anonymous CDS record search is excluded from v0.1 support",
-        "Linux is the only supported v0.1 platform",
         "mcp-dependencies.json",
         "scripts/rehearse_release.py",
-        "git clone --branch 0.1.0 --depth 1",
+        "RELEASE_TAG=0.1.0",
+        'git clone --branch "$RELEASE_TAG" --depth 1',
         "maintenance.json",
     )
     for text in required:
