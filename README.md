@@ -7,7 +7,12 @@ The community-alpha release supports Codex and Claude Code on Linux.
 
 ## Installation
 
-Clone the repository, then add it as a local marketplace.
+Clone the immutable release, then add it as a local marketplace.
+
+```bash
+git clone --branch 0.1.0 --depth 1 \
+  https://github.com/MohamedElashri/lhcb-marketplace.git
+```
 
 Codex:
 
@@ -44,10 +49,10 @@ claude plugin update lhcb@lhcb-agent-marketplace --scope user
 
 | Plugin | Version | Description | Skills | MCP |
 | --- | --- | --- | --- | --- |
-| `lhcb` | `0.1.0-rc.1` | Portable skills for current LHCb Run 3 software, analysis, data discovery, and production workflows. | 6 | no |
-| `cern-code` | `0.1.0-rc.1` | Optional read-only discovery of public and user-authorized CERN GitLab projects and source code. | 0 | yes |
-| `root-analysis` | `0.1.0-rc.1` | Optional inspection and analysis of ROOT files within explicitly configured data boundaries. | 0 | yes |
-| `hep-research` | `0.1.0-rc.1` | Optional discovery of HEP literature, publication records, documents, and public result data. | 0 | yes |
+| `lhcb` | `0.1.0` | Portable skills for current LHCb Run 3 software, analysis, data discovery, and production workflows. | 6 | no |
+| `cern-code` | `0.1.0` | Optional read-only discovery of public and user-authorized CERN GitLab projects and source code. | 0 | yes |
+| `root-analysis` | `0.1.0` | Optional inspection and analysis of ROOT files within explicitly configured data boundaries. | 0 | yes |
+| `hep-research` | `0.1.0` | Optional discovery of HEP literature, publication records, documents, and public result data. | 0 | yes |
 <!-- catalog:end -->
 
 ## LHCb skills
@@ -64,7 +69,8 @@ The `lhcb` plugin provides:
 The skills target current Run 3 workflows. Runtime work may require LHCb
 CVMFS, exact application releases, Bookkeeping or LHCbDIRAC access, and an
 authorized proxy. Run 1/2 DaVinci, Stripping, LoKi, and DecayTreeTuple are not
-supported defaults.
+supported defaults. Owners and verification dates are recorded in
+[`maintenance.json`](maintenance.json).
 
 ## MCP integrations
 
@@ -98,7 +104,7 @@ export CERN_CLIENT_SECRET="client-secret"
 Never commit credentials. Anonymous CDS record search is excluded from v0.1
 support because CERN currently returns a browser proof-of-work response.
 
-## Release candidate: 0.1.0-rc.1
+## Release 0.1.0
 
 ### Release notes
 

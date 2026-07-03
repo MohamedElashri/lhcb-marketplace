@@ -1,0 +1,201 @@
+{
+  "$schema": "./schemas/maintenance.schema.json",
+  "schema_version": 1,
+  "owner": {
+    "name": "Mohamed Elashri",
+    "github": "@MohamedElashri"
+  },
+  "verification_policy": {
+    "cadence_months": 6,
+    "next_review": "2027-01-02",
+    "early_review_triggers": [
+      "upstream interface or release change",
+      "security or provenance report",
+      "supported client behavior change"
+    ]
+  },
+  "skills": [
+    {
+      "name": "lhcb-software-environment",
+      "plugin": "lhcb",
+      "maintainer": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "reviewer": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "last_verified": "2026-07-02",
+      "next_verification": "2027-01-02",
+      "runtime_evidence": [
+        "tests/evidence/davinci-funtuple-runtime.json"
+      ]
+    },
+    {
+      "name": "davinci-run3",
+      "plugin": "lhcb",
+      "maintainer": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "reviewer": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "last_verified": "2026-07-02",
+      "next_verification": "2027-01-02",
+      "runtime_evidence": [
+        "tests/evidence/davinci-funtuple-runtime.json"
+      ]
+    },
+    {
+      "name": "funtuple",
+      "plugin": "lhcb",
+      "maintainer": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "reviewer": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "last_verified": "2026-07-02",
+      "next_verification": "2027-01-02",
+      "runtime_evidence": [
+        "tests/evidence/davinci-funtuple-runtime.json"
+      ]
+    },
+    {
+      "name": "analysis-productions",
+      "plugin": "lhcb",
+      "maintainer": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "reviewer": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "last_verified": "2026-07-02",
+      "next_verification": "2027-01-02",
+      "runtime_evidence": [
+        "tests/evidence/analysis-production-runtime.json"
+      ]
+    },
+    {
+      "name": "lhcb-data-discovery",
+      "plugin": "lhcb",
+      "maintainer": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "reviewer": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "last_verified": "2026-07-02",
+      "next_verification": "2027-01-02",
+      "runtime_evidence": []
+    },
+    {
+      "name": "lhcb-analysis-spec",
+      "plugin": "lhcb",
+      "maintainer": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "reviewer": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "last_verified": "2026-07-02",
+      "next_verification": "2027-01-02",
+      "runtime_evidence": []
+    }
+  ],
+  "integrations": [
+    {
+      "name": "cerngitlab",
+      "plugin": "cern-code",
+      "package": "cerngitlab-mcp==0.1.7",
+      "owner": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "last_verified": "2026-07-02",
+      "next_verification": "2027-01-02",
+      "supported_surface": "Read-only public and user-authorized CERN GitLab discovery."
+    },
+    {
+      "name": "root",
+      "plugin": "root-analysis",
+      "package": "root-mcp==0.1.7",
+      "owner": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "last_verified": "2026-07-02",
+      "next_verification": "2027-01-02",
+      "supported_surface": "Read-only inspection inside one explicit local allowed root."
+    },
+    {
+      "name": "inspirehep",
+      "plugin": "hep-research",
+      "package": "inspirehep-mcp==0.1.4",
+      "owner": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "last_verified": "2026-07-02",
+      "next_verification": "2027-01-02",
+      "supported_surface": "Public INSPIRE-HEP literature and metadata queries."
+    },
+    {
+      "name": "hepdata",
+      "plugin": "hep-research",
+      "package": "hepdata-mcp==0.1.0",
+      "owner": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "last_verified": "2026-07-02",
+      "next_verification": "2027-01-02",
+      "supported_surface": "Public HEPData record and table discovery."
+    },
+    {
+      "name": "cds",
+      "plugin": "hep-research",
+      "package": "cds-mcp==0.1.2",
+      "owner": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "last_verified": "2026-07-02",
+      "next_verification": "2026-10-02",
+      "supported_surface": "Initialization, tool discovery, and static experiment metadata."
+    }
+  ],
+  "follow_ups": [
+    {
+      "id": "cds-anonymous-search",
+      "issue": "https://github.com/MohamedElashri/lhcb-marketplace/issues/4",
+      "owner": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "due": "2026-10-02",
+      "scope": "Restore a structured anonymous CDS record-search query."
+    },
+    {
+      "id": "six-month-reverification",
+      "issue": "https://github.com/MohamedElashri/lhcb-marketplace/issues/5",
+      "owner": {
+        "name": "Mohamed Elashri",
+        "github": "@MohamedElashri"
+      },
+      "due": "2027-01-02",
+      "scope": "Re-verify all six skills and preserved CERN runtime paths."
+    }
+  ]
+}

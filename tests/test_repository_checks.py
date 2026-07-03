@@ -38,7 +38,7 @@ LOCAL_ONLY_PARTS = {
         "check_skills.py",
         "evaluate_skills.py",
         "check_hardening.py",
-        "check_release_readiness.py",
+        "check_release.py",
         "check_provenance.py",
     ],
 )

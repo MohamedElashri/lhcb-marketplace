@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate release-candidate metadata and rehearsal evidence."""
+"""Validate release metadata, ownership, and rehearsal evidence."""
 
 from __future__ import annotations
 
@@ -10,8 +10,8 @@ try:
 except ModuleNotFoundError:
     from scripts._lib import ROOT, CheckError, load_json, validate_json
 
-EVIDENCE = ROOT / "tests" / "evidence" / "release-readiness.json"
-CANDIDATE = "0.1.0-rc.1"
+EVIDENCE = ROOT / "tests" / "evidence" / "release.json"
+VERSION = "0.1.0"
 PLUGINS = ("lhcb", "cern-code", "root-analysis", "hep-research")
 CLIENTS = {"codex", "claude-code"}
 
@@ -20,7 +20,7 @@ def canonical_plugins() -> list[dict[str, Any]]:
     marketplace = load_json(ROOT / "marketplace.json")
     names = [entry["name"] for entry in marketplace["plugins"]]
     if names != list(PLUGINS):
-        raise CheckError("release candidate must retain the four-plugin boundary")
+        raise CheckError("release must retain the four-plugin boundary")
     return [
         load_json(ROOT / entry["path"] / "plugin.json")
         for entry in marketplace["plugins"]
@@ -29,15 +29,13 @@ def canonical_plugins() -> list[dict[str, Any]]:
 
 def validate_versions(plugins: list[dict[str, Any]]) -> None:
     for plugin in plugins:
-        if plugin["version"] != CANDIDATE:
-            raise CheckError(
-                f"{plugin['name']}: expected release candidate {CANDIDATE}"
-            )
+        if plugin["version"] != VERSION:
+            raise CheckError(f"{plugin['name']}: expected release {VERSION}")
         for client in (".codex-plugin", ".claude-plugin"):
             adapter = load_json(
                 ROOT / "plugins" / plugin["name"] / client / "plugin.json"
             )
-            if adapter["version"] != CANDIDATE:
+            if adapter["version"] != VERSION:
                 raise CheckError(
                     f"{plugin['name']}: {client} version is not synchronized"
                 )
@@ -46,7 +44,7 @@ def validate_versions(plugins: list[dict[str, Any]]) -> None:
     versions = {
         entry["name"]: entry["version"] for entry in claude_marketplace["plugins"]
     }
-    if versions != dict.fromkeys(PLUGINS, CANDIDATE):
+    if versions != dict.fromkeys(PLUGINS, VERSION):
         raise CheckError("Claude marketplace release versions are not synchronized")
 
 
@@ -54,7 +52,7 @@ def validate_documentation() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     normalized = " ".join(readme.split())
     required = (
-        "## Release candidate: 0.1.0-rc.1",
+        "## Release 0.1.0",
         "### Release notes",
         "### Access requirements and limitations",
         "### Migration notes",
@@ -64,6 +62,8 @@ def validate_documentation() -> None:
         "Linux is the only supported v0.1 platform",
         "mcp-dependencies.json",
         "scripts/rehearse_release.py",
+        "git clone --branch 0.1.0 --depth 1",
+        "maintenance.json",
     )
     for text in required:
         if text not in normalized:
@@ -94,7 +94,7 @@ def validate_evidence(evidence: dict[str, Any]) -> None:
 
     hardening = load_json(ROOT / "tests" / "evidence" / "hardening.json")
     if hardening["open_critical_issues"]:
-        raise CheckError("hardening critical issues block the release candidate")
+        raise CheckError("hardening critical issues block the release")
     if hardening["cds_search"]["decision"] != "excluded-from-v0.1-support":
         raise CheckError("release readiness must preserve the CDS exclusion")
 
@@ -105,15 +105,59 @@ def validate_evidence(evidence: dict[str, Any]) -> None:
         raise CheckError("release dependency inventory must contain five MCP servers")
 
 
+def validate_maintenance(evidence: dict[str, Any]) -> None:
+    path = ROOT / evidence["maintenance_inventory"]
+    maintenance = load_json(path)
+    validate_json(maintenance, "maintenance.schema.json", path)
+
+    skill_names = {skill["name"] for skill in maintenance["skills"]}
+    installed_skills = {
+        path.parent.name for path in (ROOT / "plugins/lhcb/skills").glob("*/SKILL.md")
+    }
+    if skill_names != installed_skills:
+        raise CheckError("maintenance inventory must cover every LHCb skill")
+    if any(
+        skill["next_verification"] != "2027-01-02" for skill in maintenance["skills"]
+    ):
+        raise CheckError("every skill must have a six-month verification date")
+    for skill in maintenance["skills"]:
+        for runtime_path in skill["runtime_evidence"]:
+            if not (ROOT / runtime_path).is_file():
+                raise CheckError(f"{skill['name']}: missing {runtime_path}")
+
+    inventory = load_json(ROOT / "mcp-dependencies.json")
+    expected_integrations = {
+        server["name"]: (
+            server["plugin"],
+            f"{server['package']}=={server['version']}",
+        )
+        for server in inventory["servers"]
+    }
+    observed_integrations = {
+        item["name"]: (item["plugin"], item["package"])
+        for item in maintenance["integrations"]
+    }
+    if observed_integrations != expected_integrations:
+        raise CheckError("maintenance inventory must cover every pinned integration")
+
+    issues = {item["issue"] for item in maintenance["follow_ups"]}
+    if issues != {
+        "https://github.com/MohamedElashri/lhcb-marketplace/issues/4",
+        "https://github.com/MohamedElashri/lhcb-marketplace/issues/5",
+    }:
+        raise CheckError("maintenance follow-ups must link both release issues")
+
+
 def main() -> None:
     evidence = load_json(EVIDENCE)
-    validate_json(evidence, "release-readiness.schema.json", EVIDENCE)
+    validate_json(evidence, "release.schema.json", EVIDENCE)
     plugins = canonical_plugins()
     validate_versions(plugins)
     validate_documentation()
     validate_evidence(evidence)
+    validate_maintenance(evidence)
     print(
-        f"OK: {CANDIDATE} release evidence covers "
+        f"OK: {VERSION} release evidence covers "
         f"{len(PLUGINS)} independent plugins on {len(CLIENTS)} clients"
     )
 

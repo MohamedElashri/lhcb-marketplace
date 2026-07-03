@@ -4,7 +4,7 @@
   "name": "lhcb",
   "display_name": "LHCb",
   "description": "Portable skills for current LHCb Run 3 software, analysis, data discovery, and production workflows.",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0",
   "author": {
     "name": "LHCb Agent Marketplace contributors",
     "url": "https://github.com/MohamedElashri"

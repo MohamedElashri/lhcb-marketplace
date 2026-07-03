@@ -1,6 +1,6 @@
 {
   "name": "cern-code",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0",
   "description": "Optional read-only discovery of public and user-authorized CERN GitLab projects and source code.",
   "author": {
     "name": "LHCb Agent Marketplace contributors",
