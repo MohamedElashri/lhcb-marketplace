@@ -1,27 +1,27 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://lhcb-agent-marketplace.example/schemas/release-readiness.schema.json",
-  "title": "Release-readiness evidence",
+  "$id": "https://lhcb-agent-marketplace.example/schemas/release.schema.json",
+  "title": "Release evidence",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "schema_version",
-    "candidate",
-    "prepared_at",
+    "version",
+    "released_at",
     "platform",
     "rehearsal",
     "release_documentation",
-    "open_release_blockers",
-    "remaining_release_actions"
+    "maintenance_inventory",
+    "open_release_blockers"
   ],
   "properties": {
     "schema_version": {
       "const": 1
     },
-    "candidate": {
-      "const": "0.1.0-rc.1"
+    "version": {
+      "const": "0.1.0"
     },
-    "prepared_at": {
+    "released_at": {
       "type": "string",
       "format": "date"
     },
@@ -142,18 +142,12 @@
         }
       }
     },
+    "maintenance_inventory": {
+      "const": "maintenance.json"
+    },
     "open_release_blockers": {
       "type": "array",
       "maxItems": 0
-    },
-    "remaining_release_actions": {
-      "type": "array",
-      "minItems": 3,
-      "uniqueItems": true,
-      "items": {
-        "type": "string",
-        "minLength": 10
-      }
     }
   }
 }

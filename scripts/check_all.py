@@ -16,7 +16,7 @@ COMMANDS = [
     [sys.executable, "scripts/check_skills.py"],
     [sys.executable, "scripts/evaluate_skills.py"],
     [sys.executable, "scripts/check_hardening.py"],
-    [sys.executable, "scripts/check_release_readiness.py"],
+    [sys.executable, "scripts/check_release.py"],
     [sys.executable, "scripts/check_provenance.py"],
     [sys.executable, "scripts/build_catalog.py", "--check"],
     [sys.executable, "-m", "pytest"],

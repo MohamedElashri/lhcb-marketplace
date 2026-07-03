@@ -4,7 +4,7 @@
   "name": "hep-research",
   "display_name": "HEP Research",
   "description": "Optional discovery of HEP literature, publication records, documents, and public result data.",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0",
   "author": {
     "name": "LHCb Agent Marketplace contributors",
     "url": "https://github.com/MohamedElashri"

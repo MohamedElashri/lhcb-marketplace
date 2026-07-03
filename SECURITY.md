@@ -2,8 +2,8 @@
 
 ## Supported versions
 
-`0.1.0-rc.1` and the current `main` branch receive security fixes. After v0.1,
-the latest minor release is supported unless release notes state otherwise.
+`0.1.0` and the current `main` branch receive security fixes. The latest minor
+release is supported unless release notes state otherwise.
 
 ## Reporting
 

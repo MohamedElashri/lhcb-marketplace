@@ -67,14 +67,14 @@ def json_command(
         ) from error
 
 
-def copy_candidate(destination: Path) -> None:
+def copy_release_tree(destination: Path) -> None:
     def ignore(_directory: str, names: list[str]) -> set[str]:
         return {name for name in names if name in IGNORED_NAMES}
 
     shutil.copytree(ROOT, destination, ignore=ignore)
     for name in IGNORED_NAMES:
         if (destination / name).exists():
-            raise CheckError(f"candidate snapshot retained local-only path {name}")
+            raise CheckError(f"release snapshot retained local-only path {name}")
 
 
 def canonical_versions(checkout: Path) -> dict[str, str]:
@@ -90,9 +90,9 @@ def create_clean_checkout(
     temporary: Path,
     environment: dict[str, str],
 ) -> Path:
-    source = temporary / "candidate-source"
+    source = temporary / "release-source"
     checkout = temporary / "checkout"
-    copy_candidate(source)
+    copy_release_tree(source)
     command(
         ["git", "init", "--initial-branch=main"],
         cwd=source,
@@ -110,7 +110,7 @@ def create_clean_checkout(
     )
     command(["git", "add", "."], cwd=source, environment=environment)
     command(
-        ["git", "commit", "-m", "Stage release candidate"],
+        ["git", "commit", "-m", "Stage release"],
         cwd=source,
         environment=environment,
     )
@@ -125,7 +125,7 @@ def create_clean_checkout(
         environment=environment,
     )
     if status:
-        raise CheckError(f"candidate checkout is dirty:\n{status}")
+        raise CheckError(f"release checkout is dirty:\n{status}")
     return checkout
 
 
@@ -295,7 +295,7 @@ def main() -> None:
             environment=environment,
         )
         result = {
-            "candidate_versions": canonical_versions(checkout),
+            "release_versions": canonical_versions(checkout),
             "clean_checkout": "passed",
             "repository_gate": "passed",
             "codex": codex_rehearsal(checkout, temporary, environment),
