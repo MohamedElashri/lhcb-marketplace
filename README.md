@@ -7,24 +7,26 @@ The community-alpha release supports Codex and Claude Code on Linux.
 
 ## Installation
 
-Clone the immutable release, then add it as a local marketplace.
-
-```bash
-git clone --branch 0.1.0 --depth 1 \
-  https://github.com/MohamedElashri/lhcb-marketplace.git
-```
-
 Codex:
 
 ```bash
-codex plugin marketplace add /absolute/path/to/lhcb-marketplace
-codex plugin add lhcb@lhcb-agent-marketplace
+codex plugin marketplace add https://github.com/MohamedElashri/lhcb-marketplace && codex plugin add lhcb@lhcb-agent-marketplace
 ```
 
 Claude Code:
 
 ```bash
-claude plugin marketplace add /absolute/path/to/lhcb-marketplace --scope user
+claude plugin marketplace add https://github.com/MohamedElashri/lhcb-marketplace --scope user && claude plugin install lhcb@lhcb-agent-marketplace
+```
+
+Optional explicit local clone (for pinned release tags):
+
+```bash
+RELEASE_TAG=0.1.0 && git clone --branch "$RELEASE_TAG" --depth 1 https://github.com/MohamedElashri/lhcb-marketplace && MARKETPLACE_DIR="$PWD/lhcb-marketplace"
+git -C "$MARKETPLACE_DIR" remote get-url origin
+codex plugin marketplace add "$MARKETPLACE_DIR"
+codex plugin add lhcb@lhcb-agent-marketplace
+claude plugin marketplace add "$MARKETPLACE_DIR" --scope user
 claude plugin install lhcb@lhcb-agent-marketplace
 ```
 
@@ -32,7 +34,16 @@ Replace `lhcb` with `cern-code`, `root-analysis`, or `hep-research` as needed.
 Plugins are independent; install only what you use. Restart the client after
 installing or updating a plugin.
 
-To refresh a local installation:
+If you installed from a local clone, move to a newer release tag by updating
+the checkout first, then refresh the installed plugin:
+
+```bash
+cd "$MARKETPLACE_DIR"
+git fetch --tags
+git checkout <new-release-tag>
+```
+
+Refresh plugin installation:
 
 ```bash
 codex plugin remove lhcb@lhcb-agent-marketplace
